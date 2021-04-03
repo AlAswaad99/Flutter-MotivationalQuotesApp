@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,6 +26,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   shared_preferences: 
   flutter_bloc: 
+
+  flutter_localizations:
+    sdk: flutter
 
 
 dev_dependencies:
@@ -64,7 +67,11 @@ flutter:
     - assets/images/14.jpeg
     - assets/images/15.jpeg
     - assets/images/16.jpeg
-    - assets/images/17.jpeg
+    - assets/images/0.jpeg
+    - assets/images/en.png
+    - assets/images/am.png
+    - assets/lang/en.json
+    - assets/lang/am.json
  
  
  

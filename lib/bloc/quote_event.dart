@@ -7,8 +7,7 @@ abstract class QuoteEvent {
 
 class FetchQuoteEvent extends QuoteEvent {
   final String url;
-  const FetchQuoteEvent({this.url});
-  @override
-  // TODO: implement props[
-  List<Object> get props => [];
+  final int currntIndex;
+  final Language lang;
+  const FetchQuoteEvent({this.url, this.currntIndex, this.lang});
 }

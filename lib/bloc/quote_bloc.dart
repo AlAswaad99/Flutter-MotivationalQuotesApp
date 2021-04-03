@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:motivate_linux/dataprovider/quote_data.dart';
+import 'package:motivate_linux/model/language.dart';
 import 'package:motivate_linux/model/quotes.dart';
 
 part 'quote_event.dart';
@@ -22,7 +23,15 @@ class QuoteBloc extends Bloc<QuoteEvent, QuoteState> {
       yield QuoteLoading();
       try {
         final quotes = await quoteDataProvider.readJSON(event.url);
-        yield QuoteLoadSuccessful(quotes);
+
+        if (event.lang != null) {
+          yield QuoteLoadSuccessful(
+              quotes: quotes,
+              currentIndex: event.currntIndex,
+              lang: event.lang);
+        } else {
+          yield QuoteLoadSuccessful(quotes: quotes);
+        }
       } catch (e) {
         yield QuoteOperationFailure();
       }
