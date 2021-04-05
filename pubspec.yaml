@@ -18,18 +18,24 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  shared_preferences: 
-  flutter_bloc: 
-
   flutter_localizations:
     sdk: flutter
-
+  collapsible: ^1.0.0
+  cupertino_icons: ^1.0.0
+  flutter_bloc: ^7.0.0
+  flutter_local_notifications: ^5.0.0
+  image_gallery_saver: ^1.6.8
+  path_provider: ^2.0.1
+  permission_handler: ^6.1.1
+  screenshot: ^0.3.0
+  share: ^2.0.1
+  shared_preferences: ^2.0.5
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -48,8 +54,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
- 
   assets:
+    - assets/images/0.jpeg
     - assets/jsons/quotes.json
     - assets/images/1.jpeg
     - assets/images/2.jpeg
@@ -67,15 +73,10 @@ flutter:
     - assets/images/14.jpeg
     - assets/images/15.jpeg
     - assets/images/16.jpeg
-    - assets/images/0.jpeg
     - assets/images/en.png
     - assets/images/am.png
     - assets/lang/en.json
     - assets/lang/am.json
- 
- 
- 
- 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
