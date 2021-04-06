@@ -17,6 +17,7 @@ import 'package:motivate_linux/model/quotes.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share/share.dart';
 
 class HomePage extends StatefulWidget {
   static final String routeName = "HomePage";
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage>
                   image: AssetImage(imgURL), fit: BoxFit.cover)),
           child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(100),
+              preferredSize: Size.fromHeight(50),
               child: Collapsible(
                 collapsed: _collapsed,
                 axis: CollapsibleAxis.both,
@@ -250,7 +251,15 @@ class _HomePageState extends State<HomePage>
                                           icon: Icon(Icons.share),
                                           iconSize: 28,
                                           color: Colors.white,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Share.share(quotestate.lang == null
+                                                ? "${quotes[index].engversion}\n\n${quotes[index].engperson}"
+                                                : quotestate.lang
+                                                            .languageCode ==
+                                                        "am"
+                                                    ? "${quotes[index].amhversion}\n\n${quotes[index].amhperson}"
+                                                    : "${quotes[index].engversion}\n\n${quotes[index].engperson}");
+                                          },
                                         ),
                                         SizedBox(
                                           width: 20,
@@ -270,10 +279,6 @@ class _HomePageState extends State<HomePage>
                                           color: Colors.white,
                                           onPressed: () {
                                             _saveScreenshot();
-                                            return ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                        "Screenshot Successfully Saved In Gallery")));
                                           },
                                         ),
                                       ],
@@ -355,7 +360,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  void saveScreenshot() async {
+  Future<void> saveScreenshot() async {
     // final directory = (await getApplicationDocumentsDirectory()).path;
     String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 
@@ -420,20 +425,25 @@ class _HomePageState extends State<HomePage>
       if (await directory.exists()) {
         File saveFile = File(
             directory.path + DateTime.now().microsecondsSinceEpoch.toString());
-        saveScreenshot();
+        await saveScreenshot();
+
         _toggleExpand();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Screenshot Successfully Saved In Gallery")));
 
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
         }
-        _toggleExpand();
+        await saveScreenshot();
 
         return true;
       }
     } catch (e) {
       print(e);
     }
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Screenshot Not Saved")));
     return false;
   }
 }
