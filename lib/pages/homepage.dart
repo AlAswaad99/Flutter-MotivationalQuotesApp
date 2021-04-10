@@ -8,19 +8,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/bloc/favorite_bloc.dart';
 import 'package:motivate_linux/dataprovider/quote_data.dart';
 import 'package:motivate_linux/localization/lang_switcher.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/main.dart';
 import 'package:motivate_linux/model/language.dart';
 import 'package:motivate_linux/model/quotes.dart';
+import 'package:motivate_linux/pages/categories_page.dart';
+import 'package:motivate_linux/pages/favorites_list_page.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 
 class HomePage extends StatefulWidget {
-  static final String routeName = "HomePage";
+  static final String routeName = "/";
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -29,9 +32,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController tabController;
+  final List<String> paths = [
+    "title",
+    "favs",
+    "cats",
+  ];
+  String currentpath;
+
   String jsonUrl = "assets/jsons/quotes.json";
   String langIconURL = "assets/images/en.png";
   String imgURL = "assets/images/1.jpeg";
+
+  Language currentLang;
   Uint8List _imageFile;
   int curindex;
   bool _collapsed = false;
@@ -51,8 +63,16 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    currentpath = paths[0];
     super.initState();
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    tabController.addListener(changepath);
+  }
+
+  void changepath() {
+    setState(() {
+      currentpath = paths[tabController.index];
+    });
   }
 
   Future<bool> _onWillPop() async {
@@ -114,7 +134,7 @@ class _HomePageState extends State<HomePage>
                     collapsed: _collapsed,
                     axis: CollapsibleAxis.both,
                     child: Text(MotivateAppLocalization.of(context)
-                        .getTranslatedValue("title")),
+                        .getTranslatedValue(currentpath)),
                   ),
                   backgroundColor: Colors.white10,
                   actions: [
@@ -139,6 +159,7 @@ class _HomePageState extends State<HomePage>
                           setState(() {
                             langIconURL =
                                 "assets/images/${language.languageCode}.png";
+                            currentLang = language;
                           });
                         },
                         items: Language.languageList()
@@ -193,6 +214,8 @@ class _HomePageState extends State<HomePage>
                         } else {
                           index = quotestate.currentIndex;
                         }
+                        BlocProvider.of<FavoriteBloc>(context)
+                            .add(FavoritesFetch());
                         return GestureDetector(
                           onTap: () {
                             setState(() {
@@ -264,11 +287,50 @@ class _HomePageState extends State<HomePage>
                                         SizedBox(
                                           width: 20,
                                         ),
-                                        IconButton(
-                                          icon: Icon(Icons.favorite_outline),
-                                          iconSize: 28,
-                                          color: Colors.white,
-                                          onPressed: () {},
+                                        BlocBuilder<FavoriteBloc,
+                                            FavoriteState>(
+                                          builder: (context, state) {
+                                            if (state is FavoritesLoadSuccess) {
+                                              final favs = state.quotes;
+                                              return IconButton(
+                                                icon: Icon(checkIfLiked(
+                                                        quotes[index], favs)
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_outline),
+                                                iconSize: 28,
+                                                color: Colors.white,
+                                                onPressed: () {
+                                                  if (checkIfLiked(
+                                                      quotes[index], favs)) {
+                                                    BlocProvider.of<
+                                                                FavoriteBloc>(
+                                                            context)
+                                                        .add(FavoriteDelete(
+                                                            quotes[index]));
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          "Removed From Favorites"),
+                                                    ));
+                                                  } else {
+                                                    BlocProvider.of<
+                                                                FavoriteBloc>(
+                                                            context)
+                                                        .add(FavoriteAdd(
+                                                            quotes[index]));
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          "Added to Favorites"),
+                                                    ));
+                                                  }
+                                                },
+                                              );
+                                            }
+                                            return Icon(Icons.favorite_outline);
+                                          },
                                         ),
                                         SizedBox(
                                           width: 20,
@@ -297,18 +359,10 @@ class _HomePageState extends State<HomePage>
                 ),
 
                 // MoviesListPage(),
-                Center(
-                  child: Text(
-                    "Favorites",
-                    style: TextStyle(fontSize: 72.0),
-                  ),
-                ),
+                FavoritesPage(currentLang: currentLang),
                 //QuoteListTrial(),
-                Center(
-                  child: Text(
-                    "About Us",
-                    style: TextStyle(fontSize: 72.0),
-                  ),
+                CategoriesPage(
+                  currentLang: currentLang,
                 ),
               ],
             ),
@@ -435,7 +489,6 @@ class _HomePageState extends State<HomePage>
           await ImageGallerySaver.saveFile(saveFile.path,
               isReturnPathOfIOS: true);
         }
-        await saveScreenshot();
 
         return true;
       }
@@ -444,6 +497,15 @@ class _HomePageState extends State<HomePage>
     }
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Screenshot Not Saved")));
+    return false;
+  }
+
+  bool checkIfLiked(Quote quote, List<Quote> favs) {
+    for (var item in favs) {
+      if (quote.id == item.id) {
+        return true;
+      }
+    }
     return false;
   }
 }

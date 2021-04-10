@@ -27,15 +27,19 @@ dependencies:
     sdk: flutter
   collapsible: ^1.0.0
   cupertino_icons: ^1.0.0
+  equatable: ^2.0.0
   flutter_bloc: ^7.0.0
   flutter_local_notifications: ^5.0.0
   image_gallery_saver: ^1.6.8
+  path: ^1.8.0
   path_provider: ^2.0.1
   permission_handler: ^6.1.1
   screenshot: ^0.3.0
   share: ^2.0.1
   shared_preferences: ^2.0.5
   sqflite: ^2.0.0+3
+  emojis: ^0.9.3
+
 
 dev_dependencies:
   flutter_test:
@@ -56,7 +60,6 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/0.jpeg
-    - assets/jsons/quotes.json
     - assets/images/1.jpeg
     - assets/images/2.jpeg
     - assets/images/3.jpeg
@@ -77,6 +80,12 @@ flutter:
     - assets/images/am.png
     - assets/lang/en.json
     - assets/lang/am.json
+    - assets/jsons/quotes.json
+    - assets/images/personal.jpg
+    - assets/images/leader.jpg
+    - assets/images/speaking.jpg
+    - assets/images/time.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

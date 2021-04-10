@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:motivate_linux/dataprovider/quote_data.dart';
@@ -23,7 +24,6 @@ class QuoteBloc extends Bloc<QuoteEvent, QuoteState> {
       yield QuoteLoading();
       try {
         final quotes = await quoteDataProvider.readJSON(event.url);
-
         if (event.lang != null) {
           yield QuoteLoadSuccessful(
               quotes: quotes,

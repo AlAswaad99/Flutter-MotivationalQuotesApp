@@ -4,9 +4,16 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:motivate_linux/dataprovider/favorite_data.dart';
 import 'package:motivate_linux/model/quotes.dart';
 
 class QuoteDataProvider {
+  var favs;
+  QuoteDataProvider() {
+    FavoriteDataProvider.dbInstance
+        .readFromDatabase()
+        .then((value) => favs = value);
+  }
   Future<List<Quote>> readJSON(String url) async {
     final String response =
         await rootBundle.loadString("assets/jsons/quotes.json");

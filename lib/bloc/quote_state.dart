@@ -1,11 +1,10 @@
 part of 'quote_bloc.dart';
 
 @immutable
-abstract class QuoteState {
+abstract class QuoteState extends Equatable {
   const QuoteState();
 
   @override
-  // TODO: implement props
   List<Object> get props => [];
 }
 

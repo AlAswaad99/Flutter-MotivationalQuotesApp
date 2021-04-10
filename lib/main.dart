@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/bloc/favorite_bloc.dart';
+import 'package:motivate_linux/dataprovider/favorite_data.dart';
 import 'package:motivate_linux/dataprovider/quote_data.dart';
 import 'package:motivate_linux/localization/lang_switcher.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/model/language.dart';
+import 'package:motivate_linux/motivation_app_routes.dart';
 import 'package:motivate_linux/pages/homepage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -34,13 +37,18 @@ class _MotivateAppState extends State<MotivateApp> {
 
   @override
   Widget build(BuildContext context) {
-    String title;
+    // String title;
 
     final quoteDataProvider = QuoteDataProvider();
-    return BlocProvider<QuoteBloc>(
-      create: (context) => QuoteBloc(quoteDataProvider: quoteDataProvider)
-        ..add(FetchQuoteEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<QuoteBloc>(
+            create: (context) => QuoteBloc(quoteDataProvider: quoteDataProvider)
+              ..add(FetchQuoteEvent())),
+        BlocProvider<FavoriteBloc>(create: (context) => FavoriteBloc())
+      ],
       child: MaterialApp(
+          onGenerateRoute: MotivationAppRoute.generateRoute,
           locale: _locale,
           debugShowCheckedModeBanner: false,
           title: 'Motivational Quotes',
@@ -79,6 +87,7 @@ class _MotivateAppState extends State<MotivateApp> {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: HomePage()),
+      // ),
     );
   }
 }
