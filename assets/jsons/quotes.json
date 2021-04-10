@@ -1,0 +1,47 @@
+[
+    {
+        "id":0,
+        "engperson":"Walt Disney",
+        "amhperson":"ዋልት ዲስኒ",
+        "engversion":"The Best Way To Get Started Is To Quit Talking And Begin Doing.",
+        "amhversion":"ለመጀመር ከሁሉ የተሻለው መንገድ ማውራትን መተው እና ማድረግ መጀመር ነው።",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":1,
+        "engperson":"Winston Churchill",
+        "amhperson":"ዊንስተን ቸርችል",
+        "engversion":"The Pessimist Sees Difficulty In Every Opportunity. The Optimist Sees Opportunity In Every Difficulty.",
+        "amhversion":"ተስፈኛው ሰው በሁሉም አጋጣሚዎች አስቸጋሪነትን ይመለከታል፡፡ ብሩህ አመለካከት በሁሉም ችግሮች ውስጥ ዕድልን ይመለከታል፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":2,
+        "engperson":"Will Rogers",
+        "amhperson":"ዊል ሮጀርስ",
+        "engversion":"Don’t Let Yesterday Take Up Too Much Of Today.",
+        "amhversion":"ትላንት የዛሬውን ብዙ እንዲወስድ አትፍቀድ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":3,
+        "engperson":"Unknown",
+        "amhperson":"ያልታወቀ",
+        "engversion":"You Learn More From Failure Than From Success. Don’t Let It Stop You. Failure Builds Character.",
+        "amhversion":"ከስኬት ይልቅ ውድቀት የበለጠ ይማራሉ። እንዲያቆምዎ አይፍቀዱ። አለመሳካቱ ባህሪን ይገነባል፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":4,
+        "engperson":"Vince Lombard",
+        "amhperson":"ቪንሴን ሎምባርዲ",
+        "engversion":"It’s Not Whether You Get Knocked Down, It’s Whether You Get Up.",
+        "amhversion":"መውደቃቹ ሳይሆን ዋናው ዳግም መነሳታቹ ነው፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    }
+]
