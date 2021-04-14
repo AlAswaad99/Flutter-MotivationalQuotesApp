@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/model/categories.dart';
 import 'package:motivate_linux/model/language.dart';
+import 'package:motivate_linux/pages/quotes_by_categories_display_page.dart';
 
 class CategoriesPage extends StatefulWidget {
   Language currentLang;
@@ -24,18 +25,20 @@ class _CategoriesPageState extends State<CategoriesPage> {
         child: GridView.count(
             shrinkWrap: true,
             padding: EdgeInsets.all(15),
-            crossAxisCount: 2,
+            crossAxisCount: 1,
             crossAxisSpacing: 20.0,
             mainAxisSpacing: 35.0,
             children: List.generate(categories.length, (index) {
-              return Center(child: _buildCategoriesCards(categories[index]));
+              return Center(
+                  child: _buildCategoriesCards(categories[index], index));
             })),
       ),
     );
   }
 
-  Widget _buildCategoriesCards(Category cat) {
-    return Card(
+  Widget _buildCategoriesCards(Category cat, int index) {
+    return GestureDetector(
+      child: Card(
         elevation: 0,
         child: Center(
           child: Column(
@@ -51,6 +54,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   ),
                 ),
               ]),
-        ));
+        ),
+      ),
+      onTap: () => Navigator.of(context).pushNamed(
+          CategoryPageViewPage.routeName,
+          arguments: categories[index].title),
+    );
   }
 }

@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:motivate_linux/model/quotes.dart';
+import 'package:workmanager/workmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
 import 'package:motivate_linux/bloc/favorite_bloc.dart';
-import 'package:motivate_linux/dataprovider/favorite_data.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'package:motivate_linux/dataprovider/quote_data.dart';
 import 'package:motivate_linux/localization/lang_switcher.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
@@ -10,9 +14,35 @@ import 'package:motivate_linux/model/language.dart';
 import 'package:motivate_linux/motivation_app_routes.dart';
 import 'package:motivate_linux/pages/homepage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager.initialize(callbackDispatcher, isInDebugMode: true);
+  Workmanager.registerPeriodicTask("5", "motivateAppNoification",
+      existingWorkPolicy: ExistingWorkPolicy.replace,
+      frequency: Duration(hours: 24),
+      initialDelay: Duration(seconds: 5));
   runApp(MotivateApp());
+}
+
+void callbackDispatcher() async {
+  Workmanager.executeTask((taskName, inputData) async {
+    var androidInitialize = AndroidInitializationSettings('launcher_icon');
+    var iOSInitialize = IOSInitializationSettings();
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    FlutterLocalNotificationsPlugin motivateAppNotification =
+        FlutterLocalNotificationsPlugin();
+    motivateAppNotification.initialize(initializationSettings,
+        onSelectNotification: NotificationServices().notficationSelected);
+    List<Quote> quotes = await QuoteDataProvider().readJSON();
+    int index = 0 + Random().nextInt((quotes.length));
+
+    NotificationServices()
+        .displayNotification(quotes[index], motivateAppNotification);
+    return Future.value(true);
+  });
 }
 
 class MotivateApp extends StatefulWidget {
@@ -89,5 +119,34 @@ class _MotivateAppState extends State<MotivateApp> {
           home: HomePage()),
       // ),
     );
+  }
+}
+
+class NotificationServices {
+  Future notficationSelected(String payload) async {}
+
+  Future displayNotification(Quote quote,
+      FlutterLocalNotificationsPlugin motivateAppNotification) async {
+    var androidDetails = AndroidNotificationDetails(
+        "channelId", "Motivation App", "Today's Quote is...",
+        importance: Importance.max, priority: Priority.high);
+    var iOSDetails = IOSNotificationDetails();
+    var generalNotitficationDetails =
+        NotificationDetails(android: androidDetails, iOS: iOSDetails);
+
+    await motivateAppNotification.show(0, "${quote.engperson}",
+        "${quote.engversion}", generalNotitficationDetails);
+
+    //
+    // var timeofday = TimeOfDay(hour: 15, minute: 37);
+    // var scheduledTime = DateTime(timeofday.hour, timeofday.minute);
+
+    // await motivateAppNotification.sh(0, "Trial Motivate App",
+    //     "please work", scheduledTime, generalNotitficationDetails,
+    //     androidAllowWhileIdle: true);
+    //
+    // await motivateAppNotification.periodicallyShow(
+    //     0, "title", "body", RepeatInterval.daily, generalNotitficationDetails,
+    //     androidAllowWhileIdle: true);
   }
 }

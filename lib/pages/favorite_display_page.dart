@@ -13,15 +13,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
-class DisplayQuotesPage extends StatefulWidget {
+class FavoritedQuoteDisplayPage extends StatefulWidget {
   static final String routeName = "QuoteDisplayPage";
   final Quote quote;
-  DisplayQuotesPage({this.quote});
+  FavoritedQuoteDisplayPage({this.quote});
   @override
-  _DisplayQuotesPageState createState() => _DisplayQuotesPageState();
+  _FavoritedQuoteDisplayPageState createState() =>
+      _FavoritedQuoteDisplayPageState();
 }
 
-class _DisplayQuotesPageState extends State<DisplayQuotesPage> {
+class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
   bool _collapsed = false;
   void _toggleCollapse() {
     setState(() {

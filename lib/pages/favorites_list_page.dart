@@ -142,7 +142,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 },
               ),
               onTap: () => Navigator.of(context).pushNamed(
-                  DisplayQuotesPage.routeName,
+                  FavoritedQuoteDisplayPage.routeName,
                   arguments: favorites[index]),
             ),
           );

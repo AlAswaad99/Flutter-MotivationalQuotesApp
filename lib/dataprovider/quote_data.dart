@@ -14,7 +14,7 @@ class QuoteDataProvider {
         .readFromDatabase()
         .then((value) => favs = value);
   }
-  Future<List<Quote>> readJSON(String url) async {
+  Future<List<Quote>> readJSON() async {
     final String response =
         await rootBundle.loadString("assets/jsons/quotes.json");
     final data = await json.decode(response) as List;

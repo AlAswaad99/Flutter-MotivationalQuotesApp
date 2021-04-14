@@ -23,7 +23,7 @@ class QuoteBloc extends Bloc<QuoteEvent, QuoteState> {
     if (event is FetchQuoteEvent) {
       yield QuoteLoading();
       try {
-        final quotes = await quoteDataProvider.readJSON(event.url);
+        final quotes = await quoteDataProvider.readJSON();
         if (event.lang != null) {
           yield QuoteLoadSuccessful(
               quotes: quotes,

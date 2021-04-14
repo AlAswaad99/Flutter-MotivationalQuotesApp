@@ -2,10 +2,13 @@
     package="com.example.motivate_linux">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.RECIEVE_BOOT_COMPLETED"/>
 
    <application
-        android:label="motivate_linux"
-        android:icon="@mipmap/ic_launcher"
+        android:label="Motivational Quotes / አነቃቂ ንግግሮች"
+        android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
         
 
@@ -40,6 +43,15 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+          <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+              <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+          </receiver>
+          <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" /> 
+          
+              
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

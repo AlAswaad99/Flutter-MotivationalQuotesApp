@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage>
                     child: Text(MotivateAppLocalization.of(context)
                         .getTranslatedValue(currentpath)),
                   ),
-                  backgroundColor: Colors.white10,
+                  backgroundColor: Colors.black38,
                   actions: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
@@ -382,7 +382,7 @@ class _HomePageState extends State<HomePage>
               collapsed: _collapsed,
               axis: CollapsibleAxis.both,
               child: Container(
-                color: const Color.fromRGBO(255, 255, 255, 0),
+                color: Colors.black38,
                 child: TabBar(
                   indicatorColor: Colors.white70,
                   controller: tabController,
@@ -423,6 +423,10 @@ class _HomePageState extends State<HomePage>
         _imageFile = value;
       });
     });
+    _toggleExpand();
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Screenshot Successfully Saved In Gallery")));
+
     final result =
         await ImageGallerySaver.saveImage(_imageFile, name: fileName);
 
@@ -481,9 +485,9 @@ class _HomePageState extends State<HomePage>
             directory.path + DateTime.now().microsecondsSinceEpoch.toString());
         await saveScreenshot();
 
-        _toggleExpand();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Screenshot Successfully Saved In Gallery")));
+        // _toggleExpand();
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     content: Text("Screenshot Successfully Saved In Gallery")));
 
         if (Platform.isIOS) {
           await ImageGallerySaver.saveFile(saveFile.path,
@@ -495,6 +499,7 @@ class _HomePageState extends State<HomePage>
     } catch (e) {
       print(e);
     }
+    _toggleExpand();
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Screenshot Not Saved")));
     return false;
