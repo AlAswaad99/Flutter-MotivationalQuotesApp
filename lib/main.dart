@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:motivate_linux/model/quotes.dart';
+import 'package:motivate_linux/services/notification_service.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ Future<void> main() async {
   Workmanager.initialize(callbackDispatcher, isInDebugMode: true);
   Workmanager.registerPeriodicTask("5", "motivateAppNoification",
       existingWorkPolicy: ExistingWorkPolicy.replace,
-      frequency: Duration(minutes: 1440),
+      frequency: Duration(hours: 4),
       initialDelay: Duration(seconds: 5));
   runApp(MotivateApp());
 }
@@ -44,10 +45,8 @@ void callbackDispatcher() async {
     final quotes = await QuoteDataProvider().readJSON();
     final index = 0 + Random().nextInt((quotes.length));
 
-    NotificationServices().displayNotification(
-        quotes[index],
-        motivateAppNotification,
-        tz.TZDateTime.now(tz.local).add(const Duration(hours: 24)));
+    NotificationServices()
+        .displayNotification(quotes[index], motivateAppNotification);
     return Future.value(true);
   });
 }
@@ -129,41 +128,5 @@ class _MotivateAppState extends State<MotivateApp> {
         )),
       ),
     );
-  }
-}
-
-class NotificationServices {
-  Future notficationSelected(String payload) async {}
-
-  Future displayNotification(
-      Quote quote,
-      FlutterLocalNotificationsPlugin motivateAppNotification,
-      tz.TZDateTime tzDateTime) async {
-    var androidDetails = AndroidNotificationDetails(
-        "channelId", "Motivation App", "Today's Quote is...",
-        importance: Importance.max, priority: Priority.high);
-    var iOSDetails = IOSNotificationDetails();
-    var generalNotitficationDetails =
-        NotificationDetails(android: androidDetails, iOS: iOSDetails);
-
-    await motivateAppNotification.periodicallyShow(
-        0,
-        "${quote.engperson}",
-        "${quote.engversion}",
-        RepeatInterval.daily,
-        generalNotitficationDetails,
-        androidAllowWhileIdle: true);
-
-    //
-    // var timeofday = TimeOfDay(hour: 15, minute: 37);
-    // var scheduledTime = DateTime(timeofday.hour, timeofday.minute);
-
-    // await motivateAppNotification.sh(0, "Trial Motivate App",
-    //     "please work", scheduledTime, generalNotitficationDetails,
-    //     androidAllowWhileIdle: true);
-    //
-    // await motivateAppNotification.periodicallyShow(
-    //     0, "title", "body", RepeatInterval.daily, generalNotitficationDetails,
-    //     androidAllowWhileIdle: true);
   }
 }
