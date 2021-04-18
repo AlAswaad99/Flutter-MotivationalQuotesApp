@@ -4,14 +4,14 @@ import 'package:motivate_linux/model/categories.dart';
 import 'package:motivate_linux/model/language.dart';
 import 'package:motivate_linux/pages/quotes_by_categories_display_page.dart';
 
-class CategoriesPage extends StatefulWidget {
-  Language currentLang;
-  CategoriesPage({this.currentLang});
+class CategoriesTab extends StatefulWidget {
+  final Language currentLang;
+  CategoriesTab({this.currentLang});
   @override
-  _CategoriesPageState createState() => _CategoriesPageState();
+  _CategoriesTabState createState() => _CategoriesTabState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage> {
+class _CategoriesTabState extends State<CategoriesTab> {
   List<Category> categories = <Category>[
     Category(title: 'personal', image: 'assets/images/personal.jpg'),
     Category(title: 'time', image: 'assets/images/time.png'),

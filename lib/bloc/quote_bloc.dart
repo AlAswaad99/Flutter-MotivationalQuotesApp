@@ -27,7 +27,7 @@ class QuoteBloc extends Bloc<QuoteEvent, QuoteState> {
         if (event.lang != null) {
           yield QuoteLoadSuccessful(
               quotes: quotes,
-              currentIndex: event.currntIndex,
+              indexChanged: event.indexChanged,
               lang: event.lang);
         } else {
           yield QuoteLoadSuccessful(quotes: quotes);

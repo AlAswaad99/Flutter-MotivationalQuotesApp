@@ -8,18 +8,18 @@ import 'package:motivate_linux/pages/favorite_display_page.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
 
-class FavoritesPage extends StatefulWidget {
+class FavoritesTab extends StatefulWidget {
   static final String routeName = "FavoritesPage";
 
-  Language currentLang;
+  final Language currentLang;
 
-  FavoritesPage({this.currentLang});
+  FavoritesTab({this.currentLang});
 
   @override
-  _FavoritesPageState createState() => _FavoritesPageState();
+  _FavoritesTabState createState() => _FavoritesTabState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage> {
+class _FavoritesTabState extends State<FavoritesTab> {
   Quote undoQuote;
   final GlobalKey<ScaffoldState> _containerKey = GlobalKey<ScaffoldState>();
 
@@ -84,47 +84,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  // return (showDialog(
-                  //       context: context,
-                  //       builder: (context) => new AlertDialog(
-                  //         title: new Text('Are you sure?'),
-                  //         content: new Text(
-                  //             'Do you want to remove this Quote from your favorite?'),
-                  //         actions: <Widget>[
-                  //           new TextButton(
-                  //             onPressed: () => Navigator.of(context).pop(false),
-                  //             child: new Text('No'),
-                  //           ),
-                  //           new TextButton(
-                  //             onPressed: () {
-                  //               Navigator.of(context).pop(false);
-                  //               showDialog(
-                  //                   context: context,
-                  //                   builder: (context) => AlertDialog(
-                  //                         content: Text(
-                  //                             "Quote Successfuly Removed from Favorites"),
-                  //                         actions: [
-                  //                           TextButton(
-                  //                             child: Text("OK"),
-                  //                             onPressed: () =>
-                  //                                 Navigator.of(context)
-                  //                                     .pop(false),
-                  //                           )
-                  //                         ],
-                  //                       ));
-
-                  //               BlocProvider.of<FavoriteBloc>(context)
-                  //                   .add(FavoriteDelete(favorites[index]));
-                  //             },
-                  //             child: new Text('Yes'),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     )) ??
-                  //     false;
-                  // //print(cinemaslist);
-                  //
-                  //
                   undoQuote = favorites[index];
                   BlocProvider.of<FavoriteBloc>(context)
                       .add(FavoriteDelete(favorites[index]));

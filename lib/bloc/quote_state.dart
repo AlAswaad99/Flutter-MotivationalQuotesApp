@@ -22,9 +22,9 @@ class QuoteLoading extends QuoteState {}
 class QuoteLoadSuccessful extends QuoteState {
   final List<Quote> quotes;
   final Language lang;
-  int currentIndex;
+  final bool indexChanged;
 
-  QuoteLoadSuccessful({this.quotes, this.currentIndex, this.lang});
+  QuoteLoadSuccessful({this.quotes, this.indexChanged, this.lang});
 
   @override
   List<Object> get props => [quotes];

@@ -10,10 +10,10 @@ abstract class QuoteEvent extends Equatable {
 
 class FetchQuoteEvent extends QuoteEvent {
   final String url;
-  final int currntIndex;
+  final bool indexChanged;
   final Language lang;
-  const FetchQuoteEvent({this.url, this.currntIndex, this.lang});
+  const FetchQuoteEvent({this.url, this.indexChanged, this.lang});
 
   @override
-  List<Object> get props => [url, currntIndex, lang];
+  List<Object> get props => [url, indexChanged, lang];
 }
