@@ -1,8 +1,9 @@
+import 'package:emojis/emojis.dart';
 import 'package:flutter/material.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/model/categories.dart';
 import 'package:motivate_linux/model/language.dart';
-import 'package:motivate_linux/pages/quotes_by_categories_display_page.dart';
+import 'package:motivate_linux/pages/categories_display_page.dart';
 
 class CategoriesTab extends StatefulWidget {
   final Language currentLang;
@@ -21,44 +22,75 @@ class _CategoriesTabState extends State<CategoriesTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: GridView.count(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(15),
-            crossAxisCount: 1,
-            crossAxisSpacing: 20.0,
-            mainAxisSpacing: 35.0,
-            children: List.generate(categories.length, (index) {
-              return Center(
-                  child: _buildCategoriesCards(categories[index], index));
-            })),
+      body: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(15),
+
+        children: List.generate(
+          categories.length,
+          (index) {
+            return Center(
+                child: index % 2 == 0
+                    ? _buildCategoriesCardsLeft(categories[index], index)
+                    : _buildCategoriesCardsRight(categories[index], index));
+          },
+        ),
+        // children: [_buildCategoriesCardsLeft(cat, index)],
       ),
     );
   }
 
-  Widget _buildCategoriesCards(Category cat, int index) {
-    return GestureDetector(
-      child: Card(
-        elevation: 0,
-        child: Center(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(child: Image(image: AssetImage(cat.image))),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    MotivateAppLocalization.of(context)
-                        .getTranslatedValue(cat.title),
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ]),
+  Widget _buildCategoriesCardsLeft(Category cat, int index) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 50),
+      title: Row(
+        children: [
+          Text(
+            MotivateAppLocalization.of(context).getTranslatedValue(cat.title),
+            softWrap: false,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            Emojis.chartIncreasing,
+          ),
+        ],
+      ),
+      leading: Container(
+        height: 250,
+        width: 100,
+        child: Image(
+          image: AssetImage(cat.image),
         ),
       ),
-      onTap: () => Navigator.of(context).pushNamed(
-          CategoryPageViewPage.routeName,
-          arguments: categories[index].title),
+      onTap: () => Navigator.of(context)
+          .pushNamed(CategoryPageViewPage.routeName, arguments: cat.title),
+    );
+  }
+
+  Widget _buildCategoriesCardsRight(Category cat, int index) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 50),
+      title: Row(
+        children: [
+          Text(
+            MotivateAppLocalization.of(context).getTranslatedValue(cat.title),
+            softWrap: false,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          ),
+          Text(
+            Emojis.chartIncreasing,
+          ),
+        ],
+      ),
+      trailing: Container(
+        height: 250,
+        width: 100,
+        child: Image(
+          image: AssetImage(cat.image),
+        ),
+      ),
+      onTap: () => Navigator.of(context)
+          .pushNamed(CategoryPageViewPage.routeName, arguments: cat.title),
     );
   }
 }

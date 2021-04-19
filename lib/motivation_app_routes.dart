@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:motivate_linux/pages/favorites_tab.dart';
 import 'package:motivate_linux/pages/homepage.dart';
 import 'package:motivate_linux/pages/favorite_display_page.dart';
-import 'package:motivate_linux/pages/quotes_by_categories_display_page.dart';
+import 'package:motivate_linux/pages/categories_display_page.dart';
 
 class MotivationAppRoute {
   static Route generateRoute(RouteSettings settings) {

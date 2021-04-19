@@ -1,13 +1,15 @@
 import 'dart:io';
-import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:collapsible/collapsible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/bloc/favorite_bloc.dart';
 import 'package:motivate_linux/model/quotes.dart';
+import 'package:motivate_linux/pages/favorite_display_page.dart';
+import 'package:collapsible/collapsible.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:motivate_linux/services/like_service.dart';
 import 'package:motivate_linux/services/screenshot_service.dart';
 import 'package:motivate_linux/services/share_service.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,16 +17,68 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 
-class FavoritedQuoteDisplayPage extends StatefulWidget {
-  static final String routeName = "QuoteDisplayPage";
-  final Quote quote;
-  FavoritedQuoteDisplayPage({this.quote});
+class CategoryPageViewPage extends StatefulWidget {
+  static final String routeName = "QuoteDisplaPage";
+
+  final String category;
+
+  CategoryPageViewPage({this.category});
   @override
-  _FavoritedQuoteDisplayPageState createState() =>
-      _FavoritedQuoteDisplayPageState();
+  _CategoryPageViewPageState createState() => _CategoryPageViewPageState();
 }
 
-class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
+class _CategoryPageViewPageState extends State<CategoryPageViewPage> {
+  @override
+  Widget build(BuildContext context) {
+    List<Quote> quotes;
+    return Scaffold(
+      body: BlocBuilder<QuoteBloc, QuoteState>(
+        builder: (context, quotestate) {
+          if (quotestate is QuoteOperationFailure) {
+            return Center(
+                child: Text(
+              'Could not fetch quote from JSON',
+              style: TextStyle(color: Colors.redAccent),
+            ));
+          }
+          if (quotestate is QuoteLoadSuccessful) {
+            quotes = quotestate.quotes
+                .where((quote) => quote.engcategory
+                    .toLowerCase()
+                    .contains(widget.category.toLowerCase()))
+                .toList();
+          }
+          return Center(child: _buildQuoteDisplay(quotes));
+        },
+      ),
+    );
+  }
+
+  Widget _buildQuoteDisplay(List<Quote> quotes) {
+    if (quotes.length == 0) {
+      return Center(
+        child: Text("No Quotes in category"),
+      );
+    }
+    return PageView.builder(
+        itemCount: quotes.length,
+        itemBuilder: (context, index) {
+          return CategorySingleQuoteView(
+            quote: quotes[index],
+          );
+        });
+  }
+}
+
+class CategorySingleQuoteView extends StatefulWidget {
+  final Quote quote;
+  CategorySingleQuoteView({this.quote});
+  @override
+  _CategorySingleQuoteViewState createState() =>
+      _CategorySingleQuoteViewState();
+}
+
+class _CategorySingleQuoteViewState extends State<CategorySingleQuoteView> {
   bool _collapsed = false;
   void _toggleCollapse() {
     setState(() {
@@ -125,30 +179,67 @@ class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
                           ),
                           Container(
                             color: Colors.black54,
-                            child: IconButton(
-                              icon: Icon(Icons.download_sharp),
-                              iconSize: 28,
-                              color: Colors.white,
-                              onPressed: () async {
-                                _toggleCollapse();
-                                await ScreenshotService()
-                                    .saveScreenshot(_screenshotController)
-                                    .then((value) {
-                                  if (value) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                "Screenshot Successfully Saved In Gallery")));
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text("Screenshot Not Saved")));
-                                  }
-                                });
-                                _toggleExpand();
+                            child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                              builder: (context, state) {
+                                if (state is FavoritesLoadSuccess) {
+                                  final favs = state.quotes;
+                                  return IconButton(
+                                    icon: Icon(LikeServce()
+                                            .checkIfLiked(widget.quote, favs)
+                                        ? Icons.favorite
+                                        : Icons.favorite_outline),
+                                    iconSize: 28,
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      if (LikeServce()
+                                          .checkIfLiked(widget.quote, favs)) {
+                                        BlocProvider.of<FavoriteBloc>(context)
+                                            .add(FavoriteDelete(widget.quote));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content:
+                                              Text("Removed From Favorites"),
+                                        ));
+                                      } else {
+                                        BlocProvider.of<FavoriteBloc>(context)
+                                            .add(FavoriteAdd(widget.quote));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text("Added to Favorites"),
+                                        ));
+                                      }
+                                    },
+                                  );
+                                }
+                                return Icon(Icons.favorite_outline);
                               },
                             ),
+                          ),
+                          Container(
+                            color: Colors.black54,
+                            child: IconButton(
+                                icon: Icon(Icons.download_sharp),
+                                iconSize: 28,
+                                color: Colors.white,
+                                onPressed: () async {
+                                  _toggleCollapse();
+                                  await ScreenshotService()
+                                      .saveScreenshot(_screenshotController)
+                                      .then((value) {
+                                    if (value) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Screenshot Successfully Saved In Gallery")));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Screenshot Not Saved")));
+                                    }
+                                  });
+                                  _toggleExpand();
+                                }),
                           ),
                           Container(
                             color: Colors.black54,

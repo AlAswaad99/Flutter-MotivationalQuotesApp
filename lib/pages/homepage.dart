@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    currentpath = paths[0];
+    currentpath = paths[1];
     super.initState();
 
     tabController = TabController(length: 3, vsync: this, initialIndex: 1);
@@ -150,97 +150,104 @@ class _HomePageState extends State<HomePage>
       child: Screenshot(
         controller: _screenshotController,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child: Collapsible(
-              collapsed: _collapsed,
-              axis: CollapsibleAxis.both,
-              child: AppBar(
-                title: Collapsible(
-                  collapsed: _collapsed,
-                  axis: CollapsibleAxis.both,
-                  child: Text(MotivateAppLocalization.of(context)
-                      .getTranslatedValue(currentpath)),
-                ),
-                backgroundColor: Colors.black38,
-                actions: [
-                  CustomShowCaseWidget(
-                    description: "change language English/Amharic",
-                    globalkey: _keyFour,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
-                      child: DropdownButton<Language>(
-                        elevation: 0,
-                        // dropdownColor: Colors.white10,
-                        icon: Image(
-                          image: AssetImage(langIconURL),
-                          width: 25,
-                          height: 25,
-                        ),
-                        underline: SizedBox(),
-                        onChanged: (Language language) {
-                          MotivateApp.setLocale(
-                              context, LanguageSwitch.changeLanguage(language));
-                          indexChanged = false;
-                          BlocProvider.of<QuoteBloc>(context).add(
-                              FetchQuoteEvent(
-                                  indexChanged: indexChanged, lang: language));
-                          setState(() {
-                            langIconURL =
-                                "assets/images/${language.languageCode}.png";
-                            currentLang = language;
-                            indexChanged = true;
-                          });
-                        },
-                        items: Language.languageList()
-                            .map<DropdownMenuItem<Language>>(
-                              (e) => DropdownMenuItem<Language>(
-                                value: e,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Image(
-                                      image: AssetImage(
-                                          "assets/images/${e.languageCode}.png"),
-                                      width: 20,
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Text(
-                                      e.name,
-                                    )
-                                  ],
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(50),
+              child: Collapsible(
+                collapsed: _collapsed,
+                axis: CollapsibleAxis.both,
+                child: AppBar(
+                  title: Collapsible(
+                    collapsed: _collapsed,
+                    axis: CollapsibleAxis.both,
+                    child: Text(MotivateAppLocalization.of(context)
+                        .getTranslatedValue(currentpath)),
+                  ),
+                  backgroundColor: Colors.black38,
+                  actions: [
+                    CustomShowCaseWidget(
+                      description: "change language English/Amharic",
+                      globalkey: _keyFour,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
+                        child: DropdownButton<Language>(
+                          elevation: 0,
+                          // dropdownColor: Colors.white10,
+                          icon: Image(
+                            image: AssetImage(langIconURL),
+                            width: 25,
+                            height: 25,
+                          ),
+                          underline: SizedBox(),
+                          onChanged: (Language language) {
+                            MotivateApp.setLocale(context,
+                                LanguageSwitch.changeLanguage(language));
+                            indexChanged = false;
+                            BlocProvider.of<QuoteBloc>(context).add(
+                                FetchQuoteEvent(
+                                    indexChanged: indexChanged,
+                                    lang: language));
+                            setCurrentLanguage(language.languageCode);
+                            setState(() {
+                              langIconURL =
+                                  "assets/images/${language.languageCode}.png";
+                              currentLang = language;
+                              indexChanged = true;
+                            });
+                          },
+                          items: Language.languageList()
+                              .map<DropdownMenuItem<Language>>(
+                                (e) => DropdownMenuItem<Language>(
+                                  value: e,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Image(
+                                        image: AssetImage(
+                                            "assets/images/${e.languageCode}.png"),
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Text(
+                                        e.name,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )
-                            .toList(),
+                              )
+                              .toList(),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-                // child: Text(MotivateAppLocalization.of(context)
-                //     .getTranslatedValue("title")),
+                    )
+                  ],
+                  // child: Text(MotivateAppLocalization.of(context)
+                  //     .getTranslatedValue("title")),
+                ),
               ),
             ),
-          ),
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              FavoritesTab(currentLang: currentLang),
-              HomeTab(
-                globalkeys: [_keyOne, _keyTwo, _keyThree],
-              ),
-              CategoriesTab(
-                currentLang: currentLang,
-              ),
-            ],
-          ),
-          bottomNavigationBar: CustomBottomNavBar(tabController: tabController),
-          backgroundColor: const Color.fromRGBO(255, 255, 255, 0),
-        ),
+            body: TabBarView(
+              controller: tabController,
+              children: [
+                FavoritesTab(currentLang: currentLang),
+                HomeTab(
+                  globalkeys: [_keyOne, _keyTwo, _keyThree],
+                ),
+                CategoriesTab(
+                  currentLang: currentLang,
+                ),
+              ],
+            ),
+            bottomNavigationBar:
+                CustomBottomNavBar(tabController: tabController),
+            backgroundColor: Colors.black),
       ),
     );
+  }
+
+  void setCurrentLanguage(String languageCode) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("currentLocale", languageCode);
   }
 }

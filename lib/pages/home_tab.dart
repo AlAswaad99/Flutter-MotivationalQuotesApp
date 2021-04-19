@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:collapsible/collapsible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
@@ -39,128 +38,150 @@ class _HomeTabState extends State<HomeTab> {
               quotestate.indexChanged == true) {
             index = 0 + Random().nextInt((quotes.length));
           } else {
-            index = currentIndex;
+            if (currentIndex == null)
+              index = 0 + Random().nextInt((quotes.length));
+            else
+              index = currentIndex;
           }
           BlocProvider.of<FavoriteBloc>(context).add(FavoritesFetch());
           return CustomBackGroundWidget(
             imgURL: "assets/images/${quotes[index].id}.jpeg",
             child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 0 + Random().nextInt((quotes.length));
-                    currentIndex = index;
-                  });
-                },
-                child: CustomShowCaseWidget(
-                  description: "tap on quote to change",
-                  globalkey: widget.globalkeys[0],
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                    width: MediaQuery.of(context).size.width,
-                    // height: 200,
-                    color: Colors.black38,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          quotestate.lang == null
-                              ? quotes[index].engversion
-                              : quotestate.lang.languageCode == "am"
-                                  ? quotes[index].amhversion
-                                  : quotes[index].engversion,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25.0, color: Colors.white),
-                          softWrap: true,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          quotestate.lang == null
-                              ? quotes[index].engperson
-                              : quotestate.lang.languageCode == "am"
-                                  ? quotes[index].amhperson
-                                  : quotes[index].engperson,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white70),
-                          softWrap: true,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 0 + Random().nextInt((quotes.length));
+                        currentIndex = index;
+                      });
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 50),
+                      child: CustomShowCaseWidget(
+                        description: "tap on quote to change",
+                        globalkey: widget.globalkeys[0],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(70),
+                                bottomLeft: Radius.circular(70),
+                                topLeft: Radius.circular(10)),
+                            color: Colors.black54,
+                          ),
+
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 55),
+                          width: MediaQuery.of(context).size.width,
+                          // height: 200,
+                          // color: Colors.black38,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CustomShowCaseWidget(
-                                description: "share quotes",
-                                globalkey: widget.globalkeys[1],
-                                child: IconButton(
-                                  icon: Icon(Icons.share),
-                                  iconSize: 28,
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    ShareService().shareQuote(quotes[index]);
-                                  },
-                                ),
+                              Text(
+                                quotestate.lang == null
+                                    ? quotes[index].engversion
+                                    : quotestate.lang.languageCode == "am"
+                                        ? quotes[index].amhversion
+                                        : quotes[index].engversion,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 25.0, color: Colors.white),
+                                softWrap: true,
                               ),
                               SizedBox(
-                                width: 20,
+                                height: 10,
                               ),
-                              CustomShowCaseWidget(
-                                description: "Add to favorites",
-                                globalkey: widget.globalkeys[2],
-                                child: BlocBuilder<FavoriteBloc, FavoriteState>(
-                                  builder: (context, state) {
-                                    if (state is FavoritesLoadSuccess) {
-                                      final favs = state.quotes;
-                                      return IconButton(
-                                        icon: Icon(LikeServce().checkIfLiked(
-                                                quotes[index], favs)
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline),
-                                        iconSize: 28,
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          if (LikeServce().checkIfLiked(
-                                              quotes[index], favs)) {
-                                            BlocProvider.of<FavoriteBloc>(
-                                                    context)
-                                                .add(FavoriteDelete(
-                                                    quotes[index]));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  "Removed From Favorites"),
-                                            ));
-                                          } else {
-                                            BlocProvider.of<FavoriteBloc>(
-                                                    context)
-                                                .add(
-                                                    FavoriteAdd(quotes[index]));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text("Added to Favorites"),
-                                            ));
-                                          }
-                                        },
-                                      );
-                                    }
-                                    return Icon(Icons.favorite_outline);
-                                  },
-                                ),
+                              Text(
+                                quotestate.lang == null
+                                    ? quotes[index].engperson
+                                    : quotestate.lang.languageCode == "am"
+                                        ? quotes[index].amhperson
+                                        : quotes[index].engperson,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.white70),
+                                softWrap: true,
                               ),
                             ],
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15))),
+                        // color: Colors.black54,
+                        child: CustomShowCaseWidget(
+                          description: "share quotes",
+                          globalkey: widget.globalkeys[1],
+                          child: IconButton(
+                            icon: Icon(Icons.share),
+                            iconSize: 28,
+                            color: Colors.white,
+                            onPressed: () {
+                              ShareService().shareQuote(quotes[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.black54,
+                      ),
+                      Container(
+                        color: Colors.black54,
+                        child: CustomShowCaseWidget(
+                          description: "Add to favorites",
+                          globalkey: widget.globalkeys[2],
+                          child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                            builder: (context, state) {
+                              if (state is FavoritesLoadSuccess) {
+                                final favs = state.quotes;
+                                return IconButton(
+                                  icon: Icon(LikeServce()
+                                          .checkIfLiked(quotes[index], favs)
+                                      ? Icons.favorite
+                                      : Icons.favorite_outline),
+                                  iconSize: 28,
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    if (LikeServce()
+                                        .checkIfLiked(quotes[index], favs)) {
+                                      BlocProvider.of<FavoriteBloc>(context)
+                                          .add(FavoriteDelete(quotes[index]));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text("Removed From Favorites"),
+                                      ));
+                                    } else {
+                                      BlocProvider.of<FavoriteBloc>(context)
+                                          .add(FavoriteAdd(quotes[index]));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text("Added to Favorites"),
+                                      ));
+                                    }
+                                  },
+                                );
+                              }
+                              return Icon(Icons.favorite_outline);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           );

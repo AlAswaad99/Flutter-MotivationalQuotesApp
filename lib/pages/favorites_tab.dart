@@ -46,7 +46,7 @@ class _FavoritesTabState extends State<FavoritesTab> {
                 'No Favorites Currently',
               ));
             }
-            return _buildfavoriteslist(favorites);
+            return _buildfavoriteslist(favorites, context);
           }
 
           return Center(child: CircularProgressIndicator());
@@ -55,7 +55,7 @@ class _FavoritesTabState extends State<FavoritesTab> {
     );
   }
 
-  Widget _buildfavoriteslist(List<Quote> favorites) {
+  Widget _buildfavoriteslist(List<Quote> favorites, BuildContext ctx) {
     return ListView.builder(
         itemCount: favorites.length,
         itemBuilder: (context, index) {
@@ -89,11 +89,11 @@ class _FavoritesTabState extends State<FavoritesTab> {
                       .add(FavoriteDelete(favorites[index]));
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("Removed From Favorites"),
-                    duration: const Duration(milliseconds: 2000),
+                    duration: const Duration(milliseconds: 6000),
                     action: SnackBarAction(
                       label: "UNDO",
                       onPressed: () {
-                        BlocProvider.of<FavoriteBloc>(context)
+                        BlocProvider.of<FavoriteBloc>(ctx)
                             .add(FavoriteAdd(undoQuote));
                       },
                     ),
