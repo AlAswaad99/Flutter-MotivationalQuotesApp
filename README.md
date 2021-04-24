@@ -102,3 +102,28 @@ Motivatoional Quotes/አነቃቂ ንግግሮች is a mobile application that c
   - connectivity: ^3.0.3
   
 ## Screenshots
+
+#### Home Tab
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_15-58-24.jpg" alt="home tab english" width="200"/>               <img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-03.jpg" alt="home tab amharic" width="200"/>
+
+#### Favorites Tab
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-09.jpg" alt="favorites tab english" width="200"/>               <img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-14.jpg" alt="favorites tab amharic" width="200"/>
+
+#### Categories Tab
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-28.jpg" alt="categories tab english" width="200"/>               <img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-20.jpg" alt="categories tab amharic" width="200"/>
+
+#### Quote Display Page
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-53.jpg" alt="quote display english" width="200"/>               <img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-46.jpg" alt="quote display amharic" width="200"/>
+
+#### Screenshot
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-56-57.jpg" alt="screenshot" width="200"/>
+
+#### Local Notification (Inside/Outside App)
+
+<img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-33.jpg" alt="local notification inside app" width="200"/>               <img src="https://github.com/AlAswaad99/Flutter-MotivationalQuotesApp/blob/master/screenshots/photo_2021-04-24_14-57-39.jpg" alt="local noification background outside app" width="200"/>
+
