@@ -98,20 +98,20 @@ class _HomePageState extends State<HomePage>
     }
     return (await showDialog(
           context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text(MotivateAppLocalization.of(context)
+          builder: (context) => AlertDialog(
+            title: Text(MotivateAppLocalization.of(context)
                 .getTranslatedValue("are_you_sure")),
-            content: new Text(MotivateAppLocalization.of(context)
+            content: Text(MotivateAppLocalization.of(context)
                 .getTranslatedValue("exit_message")),
             actions: <Widget>[
-              new TextButton(
+              TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: new Text(MotivateAppLocalization.of(context)
+                child: Text(MotivateAppLocalization.of(context)
                     .getTranslatedValue("no")),
               ),
               TextButton(
                 onPressed: () => SystemNavigator.pop(),
-                child: new Text(MotivateAppLocalization.of(context)
+                child: Text(MotivateAppLocalization.of(context)
                     .getTranslatedValue("yes")),
               ),
             ],
