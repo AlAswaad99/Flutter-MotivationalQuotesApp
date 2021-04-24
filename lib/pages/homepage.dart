@@ -6,6 +6,7 @@ import 'package:collapsible/collapsible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:motivate_linux/bloc/bloc.dart';
 import 'package:motivate_linux/bloc/favorite_bloc.dart';
@@ -31,17 +32,20 @@ import 'package:showcaseview/showcaseview.dart';
 
 class HomePage extends StatefulWidget {
   static final String routeName = "/";
-  final BuildContext context;
+  final Language language;
 
-  HomePage({this.context});
+  HomePage({this.language});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+    with
+        SingleTickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<HomePage> {
   TabController tabController;
+
   final List<String> paths = [
     "favs",
     "title",
@@ -50,7 +54,7 @@ class _HomePageState extends State<HomePage>
   String currentpath;
 
   String jsonUrl = "assets/jsons/quotes.json";
-  String langIconURL = "assets/images/en.png";
+  String langIconURL = "assets/svgs/en.svg";
   String imgURL = "assets/images/1.jpeg";
 
   Language currentLang;
@@ -64,19 +68,22 @@ class _HomePageState extends State<HomePage>
   final _keyFour = GlobalKey();
   final _keyFive = GlobalKey();
 
-  void _toggleCollapse() {
-    setState(() {
-      _collapsed = true;
-    });
-  }
+  // void _toggleCollapse() {
+  //   setState(() {
+  //     _collapsed = true;
+  //   });
+  // }
 
-  void _toggleExpand() {
-    setState(() {
-      _collapsed = false;
-    });
-  }
+  // void _toggleExpand() {
+  //   setState(() {
+  //     _collapsed = false;
+  //   });
+  // }
 
   ScreenshotController _screenshotController = ScreenshotController();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -85,6 +92,11 @@ class _HomePageState extends State<HomePage>
 
     tabController = TabController(length: 3, vsync: this, initialIndex: 1);
     tabController.addListener(changepath);
+
+    if (widget.language != null) {
+      currentLang = widget.language;
+      langIconURL = "assets/svgs/${widget.language.languageCode}.svg";
+    }
   }
 
   void changepath() {
@@ -101,16 +113,20 @@ class _HomePageState extends State<HomePage>
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit this App'),
+            title: new Text(MotivateAppLocalization.of(context)
+                .getTranslatedValue("are_you_sure")),
+            content: new Text(MotivateAppLocalization.of(context)
+                .getTranslatedValue("exit_message")),
             actions: <Widget>[
               new TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No'),
+                child: new Text(MotivateAppLocalization.of(context)
+                    .getTranslatedValue("no")),
               ),
               TextButton(
                 onPressed: () => SystemNavigator.pop(),
-                child: new Text('Yes'),
+                child: new Text(MotivateAppLocalization.of(context)
+                    .getTranslatedValue("yes")),
               ),
             ],
           ),
@@ -120,6 +136,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     SharedPreferences preferences;
     displayShowCase() async {
       preferences = await SharedPreferences.getInstance();
@@ -134,8 +151,13 @@ class _HomePageState extends State<HomePage>
 
     displayShowCase().then((status) {
       if (status) {
-        ShowCaseWidget.of(context)
-            .startShowCase([_keyOne, _keyTwo, _keyThree, _keyFour, _keyFive]);
+        ShowCaseWidget.of(context).startShowCase([
+          _keyOne,
+          _keyTwo,
+          _keyThree,
+          _keyFour,
+          _keyFive,
+        ]);
       }
     });
 
@@ -150,88 +172,78 @@ class _HomePageState extends State<HomePage>
       child: Screenshot(
         controller: _screenshotController,
         child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(50),
-              child: Collapsible(
-                collapsed: _collapsed,
-                axis: CollapsibleAxis.both,
-                child: AppBar(
-                  title: Collapsible(
-                    collapsed: _collapsed,
-                    axis: CollapsibleAxis.both,
-                    child: Text(MotivateAppLocalization.of(context)
-                        .getTranslatedValue(currentpath)),
-                  ),
-                  backgroundColor: Colors.black38,
-                  actions: [
-                    CustomShowCaseWidget(
-                      description: "change language English/Amharic",
-                      globalkey: _keyFour,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
-                        child: DropdownButton<Language>(
-                          elevation: 0,
-                          // dropdownColor: Colors.white10,
-                          icon: Image(
-                            image: AssetImage(langIconURL),
-                            width: 25,
-                            height: 25,
-                          ),
-                          underline: SizedBox(),
-                          onChanged: (Language language) {
-                            MotivateApp.setLocale(context,
-                                LanguageSwitch.changeLanguage(language));
-                            indexChanged = false;
-                            BlocProvider.of<QuoteBloc>(context).add(
-                                FetchQuoteEvent(
-                                    indexChanged: indexChanged,
-                                    lang: language));
-                            setCurrentLanguage(language.languageCode);
-                            setState(() {
-                              langIconURL =
-                                  "assets/images/${language.languageCode}.png";
-                              currentLang = language;
-                              indexChanged = true;
-                            });
-                          },
-                          items: Language.languageList()
-                              .map<DropdownMenuItem<Language>>(
-                                (e) => DropdownMenuItem<Language>(
-                                  value: e,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Image(
-                                        image: AssetImage(
-                                            "assets/images/${e.languageCode}.png"),
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Text(
-                                        e.name,
-                                      )
-                                    ],
-                                  ),
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            title: Text(MotivateAppLocalization.of(context)
+                .getTranslatedValue(currentpath)),
+            backgroundColor: const Color.fromRGBO(11, 11, 11, 1),
+            actions: [
+              CustomShowCaseWidget(
+                description: "change language English/Amharic",
+                globalkey: _keyFour,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
+                  child: DropdownButton<Language>(
+                    elevation: 0,
+                    // dropdownColor: Colors.white10,
+                    icon: SvgPicture.asset(
+                      langIconURL,
+                      width: 25,
+                      height: 25,
+                    ),
+
+                    underline: SizedBox(),
+                    onChanged: (Language language) {
+                      MotivateApp.setLocale(
+                          context, LanguageSwitch.changeLanguage(language));
+                      indexChanged = false;
+                      BlocProvider.of<QuoteBloc>(context).add(FetchQuoteEvent(
+                          indexChanged: indexChanged, lang: language));
+                      setCurrentLanguage(language.languageCode);
+                      setState(() {
+                        langIconURL =
+                            "assets/svgs/${language.languageCode}.svg";
+                        currentLang = language;
+                        indexChanged = true;
+                      });
+                    },
+                    items: Language.languageList()
+                        .map<DropdownMenuItem<Language>>(
+                          (e) => DropdownMenuItem<Language>(
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  "assets/svgs/${e.languageCode}.svg",
+                                  width: 20,
+                                  height: 20,
                                 ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    )
-                  ],
-                  // child: Text(MotivateAppLocalization.of(context)
-                  //     .getTranslatedValue("title")),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  e.name,
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              ),
-            ),
-            body: TabBarView(
+              )
+            ],
+            // child: Text(MotivateAppLocalization.of(context)
+            //     .getTranslatedValue("title")),
+          ),
+          body: Container(
+            child: TabBarView(
               controller: tabController,
               children: [
                 FavoritesTab(currentLang: currentLang),
                 HomeTab(
+                  currentLang: currentLang,
                   globalkeys: [_keyOne, _keyTwo, _keyThree],
                 ),
                 CategoriesTab(
@@ -239,9 +251,11 @@ class _HomePageState extends State<HomePage>
                 ),
               ],
             ),
-            bottomNavigationBar:
-                CustomBottomNavBar(tabController: tabController),
-            backgroundColor: Colors.black),
+          ),
+          bottomNavigationBar: CustomBottomNavBar(tabController: tabController),
+          backgroundColor: const Color.fromRGBO(11, 11, 11, 1),
+          extendBody: true,
+        ),
       ),
     );
   }

@@ -13,7 +13,7 @@
         "engperson":"Winston Churchill",
         "amhperson":"ዊንስተን ቸርችል",
         "engversion":"The Pessimist Sees Difficulty In Every Opportunity. The Optimist Sees Opportunity In Every Difficulty.",
-        "amhversion":"ተስፈኛው ሰው በሁሉም አጋጣሚዎች አስቸጋሪነትን ይመለከታል፡፡ ብሩህ አመለካከት በሁሉም ችግሮች ውስጥ ዕድልን ይመለከታል፡፡",
+        "amhversion":"ጽልመተኛው የሁሉም አጋጣሚዎች አስቸጋሪነትን ይመለከታል፡፡ ብሩህ አመለካከት ያለው ሰው ግን በሁሉም ችግሮች ውስጥ መልካም ዕድልን ይመለከታል፡፡",
         "engcategory":"Personal Development",
         "amhcategory":"ራስን ማሳደግ"
     },
@@ -31,7 +31,7 @@
         "engperson":"Unknown",
         "amhperson":"ያልታወቀ",
         "engversion":"You Learn More From Failure Than From Success. Don’t Let It Stop You. Failure Builds Character.",
-        "amhversion":"ከስኬት ይልቅ ውድቀት የበለጠ ይማራሉ። እንዲያቆምዎ አይፍቀዱ። አለመሳካቱ ባህሪን ይገነባል፡፡",
+        "amhversion":"ከስኬት ይልቅ ውድቀት የበለጠ ያስተምራል። እንዲያቆምዎ አይፍቀዱ። አለመሳካቱ ባህሪን ይገነባልና፡፡",
         "engcategory":"Personal Development",
         "amhcategory":"ራስን ማሳደግ"
     },
@@ -43,5 +43,366 @@
         "amhversion":"መውደቃቹ ሳይሆን ዋናው ዳግም መነሳታቹ ነው፡፡",
         "engcategory":"Personal Development",
         "amhcategory":"ራስን ማሳደግ"
+    }
+    ,
+    {
+        "id":5,
+        "engperson":"Mother Teresa",
+        "amhperson":"ማዘር ቴሬሳ",
+        "engversion":"Be faithful in small things because it is in them that your strength lies",
+        "amhversion":"በትንሽ ነገሮች ውስጥ ታማኝ ይሁኑ ምክንያቱም ጥንካሬዎ በእነሱ ውስጥ ነው ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":6,
+        "engperson":"Franklin D. Roosevelt",
+        "amhperson":"ፍራንክሊን ዲ ሩዝቬልት",
+        "engversion":"The Only Limit To Our Realization Of Tomorrow Will Be Our Doubts Of Today",
+        "amhversion":"የነገን እውንነታችን ብቸኛው የዛሬ ጥርጣሬያችን ይሆናል ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":7,
+        "engperson":"Albert Einstein",
+        "amhperson":"አልበርት አይንስታይን",
+        "engversion":"Creativity Is Intelligence Having Fun.",
+        "amhversion":"ፈጠራ በብልህነት መዝናናት ነው ፡፡ ",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":8,
+        "engperson":"Don Zimmer",
+        "amhperson":"ዶን ዚመር",
+        "engversion":"What You Lack In Talent Can Be Made Up With Desire, Hustle And Giving 110% All The Time.",
+        "amhversion":"በችሎታ ውስጥ የጎደለህን ነገር በፍላጎት ፣ በውጣውረድ እና ሁል ጊዜ 110% በመስጠት ማግኘት ይቻላል ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":9,
+        "engperson":"C.S. Lewis",
+        "amhperson":"ሲ.ኤስ. ሉዊስ",
+        "engversion":"You Are Never Too Old To Set Another Goal Or To Dream A New Dream.",
+        "amhversion":"ሌሎች ግቦችን ለማዘጋጀት ወይም አዲስ ህልም ለማለም በጭራሽ አላረጁም ፡፡ ጊዜው ገና ነውና ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":10,
+        "engperson":"Brian Tracy",
+        "amhperson":"ብራያን ትሬሲ",
+        "engversion":"Reading Is To The Mind, As Exercise Is To The Body",
+        "amhversion":"የአካል ብቃት እንቅስቃሴ ለሰውነት እንደ ሆነ ንባብ ለአእምሮ ነው ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":11,
+        "engperson":"Marcus Tullius Cicero",
+        "amhperson":"ማርከስ ቱሊየስ ሲሴሮ",
+        "engversion":"A Room Without Books Is Like A Body Without A Soul.",
+        "amhversion":"መጻሕፍት የሌሉበት ክፍል ነፍስ የሌለበት አካልን ይመስላል ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":12,
+        "engperson":"Robert H. Schuller",
+        "amhperson":"ሮበርት ኤች ሹለር",
+        "engversion":"Today’s Accomplishments Were Yesterday’s Impossibilities.",
+        "amhversion":"የዛሬዎቹ ስኬቶች የትናንት የማይሳኩ ዕድሎች ነበሩ ፡፡",
+        "engcategory":"Personal Development",
+        "amhcategory":"ራስን ማሳደግ"
+    },
+    {
+        "id":13,
+        "engperson":"Stephen R Covey",
+        "amhperson":"ስቴፈን አር ኮቪ",
+        "engversion":"What You Do Has Far Greater Impact Than What You Say",
+        "amhversion":"የምታደርጉት ነገር ከምትናገሩት እጅግ የላቀ ተጽዕኖ አለው ፡፡",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":14,
+        "engperson":"Dianne Feinstein",
+        "amhperson":"ዲያን ፊይንስቴይን",
+        "engversion":"Ninety Percent Of Leadership Is The Ability To Communicate Something People Want",
+        "amhversion":"ዘጠና በመቶ የሚሆነው የመሪነት ጥበብ ሰዎች የሚፈልጉትን ነገር የማስተላለፍ ችሎታ ነው",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":15,
+        "engperson":"Warren Buffet",
+        "amhperson":"ዋረን በፌት",
+        "engversion":"It Takes 20 Years To Build A Reputation And Five Minutes To Ruin It. If You Think About That, You’ll Do Things Differently",
+        "amhversion":"ዝና ለመገንባት 20 ዓመት በቂ ነው፡፡ እሱን ደግሞ ለማጥፋት አምስት ደቂቃዎችን፡፡ ስለዚህ ካሰቡ ነገሮችን በተለየ መንገድ ያከናውናሉ",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":16,
+        "engperson":"Sam Walton",
+        "amhperson":"ሳም ዋልተን",
+        "engversion":"Outstanding Leaders Go Out Of The Way To Boost The Self-Esteem Of Their Personnel. If People Believe In Themselves, It’s Amazing What They Can Accomplish",
+        "amhversion":"ጎበዝ መሪዎች ለሰራተኞቻቸው ያላቸውን ከፍተኛ ግምት ያሳድጋሉ፡፡ ሰዎች በራሳቸው የሚያምኑ ከሆነ ምን ማከናወን እንደሚችሉ ስለሚገነዘቡ ነው",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":17,
+        "engperson":"Walt Disney",
+        "amhperson":"ዋልት ዲስኒ",
+        "engversion":"Of All The Things I’ve Done, The Most Vital Is Coordinating Those Who Work With Me And Aiming Their Efforts At A Certain Goal",
+        "amhversion":"ከሠራኋቸው ነገሮች ሁሉ በጣም ዋነኛው ከእኔ ጋር የሚሰሩትን ማስተባበር እና ጥረታቸውን በተወሰነ ግብ ላይ ማነጣጠር ነው",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":18,
+        "engperson":"Ben Roethlisberger",
+        "amhperson":"ቤን ሮተሊስበርገር",
+        "engversion":"Leadership Is Something You Earn, Something You’re Chosen For. You Can’t Come In Yelling, ‘I’m Your Leader!’ If It Happens, It’s Because The Other Guys Respect You",
+        "amhversion":"መሪነት የሚገኝ ነገር ነው ፣ የመመረጥ ጉዳይ ነው ፡፡ በመጮህ ውስጥ መምጣት አይችልም ፣ ‘እኔ መሪህ ነኝ!’ ስላልክ የሚሆን አይደለም",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":19,
+        "engperson":"Peter F. Drucker",
+        "amhperson":"ፒተር ኤፍ. ድራከር",
+        "engversion":"Management Is Doing Things Right; Leadership Is Doing The Right Things",
+        "amhversion":"ማስተዳደር ነገርን በትክክል ማድረግ ነው ፤ መሪነት ግን ትክክለኛ ነገርን ማደረገ ነው ፡፡",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":20,
+        "engperson":"Steve Jobs",
+        "amhperson":"ስቲቭ ጆብስ",
+        "engversion":"Innovation Distinguishes Between A Leader And A Follower",
+        "amhversion":"ፈጠራ የአንድን ሰው መሪነት እና ተከታይነት ይለያል ፡፡",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":21,
+        "engperson":"Max Lucado",
+        "amhperson":"ማክስ ሉካዶ",
+        "engversion":"A Man Who Wants To Lead The Orchestra Must Turn His Back On The Crowd",
+        "amhversion":"ኦርኬስትራውን መምራት የሚፈልግ ሰው ወደ ህዝቡ ጀርባውን ማዞር አለበት ፡፡",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":22,
+        "engperson":"Eleanor Roosevelt",
+        "amhperson":"ኤሌኖር ሩዝቬልት",
+        "engversion":"The Future Belongs To Those Who Believe In The Beauty Of Their Dreams.",
+        "amhversion":"መጪው ጊዜ በህልማቸው ውበት ለሚያምኑ ህልመኞች ነው ፡፡",
+        "engcategory":"Leadership",
+        "amhcategory":"መሪነት"
+    },
+    {
+        "id":23,
+        "engperson":"Plato",
+        "amhperson":"ፕላቶ",
+        "engversion":"A Wise Man Speaks Because He Has Something To Say, A Fool Speaks Because He Has To Say Something.",
+        "amhversion":"ጠቢብ ሰው የሚናገረው ነገር ስላለው ይናገራል ፣ ሞኝ ደግሞ መናገር ስላለበት ይናገራል ፡፡",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":24,
+        "engperson":"Horace",
+        "amhperson":"ሆራስ",
+        "engversion":"Once A Word Has Been Allowed To Escape, It Cannot Be Recalled",
+        "amhversion":"አንድ ቃል ካመለጠ ከተፈቀደ በኋላ መመለስ አይችልም ፡፡",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":25,
+        "engperson":"Dionysius Of Halicarnassus",
+        "amhperson":"ዲዮናስዮስ ኦፍ ሃሊካርናሰስ",
+        "engversion":"Let Thy Speech Be Better Than Silence, Or Be Silent",
+        "amhversion":"ንግግርህ ከዝምታ የተሻለ ይሁን፣ ካልሆነም ዝም በል ፡፡",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":26,
+        "engperson":"Benjamin Franklin",
+        "amhperson":"ቤንጃሚን ፍራንክሊን",
+        "engversion":"Remember Not Only To Say The Right Thing In The Right Place, But Far More Difficult Still, To Leave Unsaid The Wrong Thing At The Tempting Moment",
+        "amhversion":"በትክክለኛው ቦታ ትክክለኛውን ነገር ለመናገር ብቻ ሳይሆን በጣም አስቸጋሪም በሚሆንበት ጊዜ የተሳሳተ ነገር ላለመናገር ያስታውሉ ፡፡",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":27,
+        "engperson":"Winston Churchill",
+        "amhperson":"ዊንስተን ቸርችል",
+        "engversion":"Broadly Speaking, The Short Words Are The Best, And The Old Words Best Of All",
+        "amhversion":"በአጠቃላይ አጫጭር ቃላት ከሁሉ የተሻሉ ናቸው። እናም የድሮ ዘመን ቃላት ደግሞ ይበልጡኑ ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":28,
+        "engperson":"Maya Angelou",
+        "amhperson":"ማያ አንጀሉ",
+        "engversion":"I’ve Learned That People Will Forget What You Said, People Will Forget What You Did, But People Will Never Forget How You Made Them Feel",
+        "amhversion":"ሰዎች የተናገርከውን እንደሚረሱ ፣ ያደረግከውንም እንደሚረሱ ፣ ነገር ግን ምን አይነት ስሜት እንዲሰማቸው ያደረግከውን እንደማይረሱ ተምሬያለሁ ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":29,
+        "engperson":"Ralph Waldo Emerson",
+        "amhperson":"ራልፍ ዋልዶ ኤመርሰን",
+        "engversion":"Speech Is Power: Speech Is To Persuade, To Convert, To Compel",
+        "amhversion":"ንግግር ኃይል ነው ፤ ንግግር ማሳመን ነው፣ መለወጥ ነው፣ ማስገደድ ነው ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":30,
+        "engperson":"D.H. Lawrence",
+        "amhperson":"ዲ.ኤች. ሎውረንስ",
+        "engversion":"Be Still When You Have Nothing To Say; When Genuine Passion Moves You, Say What You’ve Got To Say, And Say It Hot",
+        "amhversion":"የሚሉት ነገር ሳይኖርዎት ሲቀር ዝም ይበሉ፣ ነገር ግን ውስጥዎ ሲቃጠልና እውነተኛ ስሜት ሲሰማዎት የሚናገሩትን በአጽንዎት ይናገሩ ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":31,
+        "engperson":"John Ford",
+        "amhperson":"ጆን ፎርድ",
+        "engversion":"You Can Speak Well If Your Tongue Can Deliver The Message Of Your Heart",
+        "amhversion":"አንደበትዎ የልብዎን መልእክት ማስተላለፍ ከቻለ በደንብ መናገር ይችላሉ ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":32,
+        "engperson":"Cato The Elder",
+        "amhperson":"ካቶ ዘ ኤልደር",
+        "engversion":"Grasp The Subject, The Words Will Follow",
+        "amhversion":"በመጀመሪያ ርዕሰ ጉዳዩን ይረዱ ፣ ቃላቱ ይከተላሉ ።",
+        "engcategory":"Public Speaking",
+        "amhcategory":"ንግግር"
+    },
+    {
+        "id":33,
+        "engperson":"Stephen R. Covey",
+        "amhperson":"ስቴፈን አር ኮቪ",
+        "engversion":"The Key Is In Not Spending Time, But In Investing It",
+        "amhversion":"ቁልፉ ጊዜን ማሳለፍ ላይ ሳይሆን መጠቀም ላይ ነው ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":34,
+        "engperson":"Jim Rohn",
+        "amhperson":"ጂም ሮን",
+        "engversion":"Time Is More Valuable Than Money. You Can Get More Money, But You Cannot Get More Time",
+        "amhversion":"ጊዜ ከገንዘብ የበለጠ ዋጋ አለው። ተጨማሪ ገንዘብ ማግኘት ይችላል ፣ ግን ተጨማሪ ጊዜ ማግኘት አይችልም ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":35,
+        "engperson":"Mozart",
+        "amhperson":"ሞዛርት",
+        "engversion":"The Shorter Way To Do Many Things Is To Only Do One Thing At A Time",
+        "amhversion":"ብዙ ነገሮችን ለማድረግ አጭሩ መንገድ አንድ ነገር ብቻ በአንድ ጊዜ ማከናወን ነው ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":36,
+        "engperson":"William Shakespeare",
+        "amhperson":"ዊሊያም ሼክስፒር",
+        "engversion":"Better To Be Three Hours Too Soon, Than A Minute Too Late",
+        "amhversion":"አንድ ደቂቃ ከመዘግየት ይልቅ ሦስት ሰዓታት ቀዳሚ ይሻላል ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":37,
+        "engperson":"Mother Teresa",
+        "amhperson":"ማዘር ቴሬሳ",
+        "engversion":"Yesterday Is Gone. Tomorrow Has Not Yet Come. We Have Only Today. Let Us Begin",
+        "amhversion":"ትናንት ሄዷል ፡፡ ነገ ገና አልመጣም ፡፡ ያለን ዛሬ ብቻ ነው ፡፡ እንጀምር ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":38,
+        "engperson":"Lord Chesterfield",
+        "amhperson":"ሎርድ ቼስተርፊልድ",
+        "engversion":"Take Care Of The Minutes And The Hours Will Take Care Of Themselves.",
+        "amhversion":"ደቂቃዎቹን ይንከባከቡ ፣ ሰዓቶቹ እራሳቸውን ይንከባከባሉ ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":39,
+        "engperson":"Publius Syrus",
+        "amhperson":"ፐብሊየስ ሳይረስ",
+        "engversion":"To Do Two Things At Once Is To Do Neither",
+        "amhversion":"በአንድ ጊዜ ሁለት ነገሮችን ማድረግ ሁለቱንም እንደአለማድረግ ነው ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":40,
+        "engperson":"Thomas Edison",
+        "amhperson":"ቶማስ ኤዲሰን",
+        "engversion":"Time Is Really The Only Capital That Any Human Being Has, And The Only Thing He Can't Afford To Lose",
+        "amhversion":"በእውነቱ  ጊዜ የማንኛውም የሰው ልጅ ማጣት የማይችለው ብቸኛ ካፒታሉ ነው  ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":41,
+        "engperson":"Stephen R. Covey",
+        "amhperson":"ስቴፈን አር. ኮቪ",
+        "engversion":"Most Of Us Spend Too Much Time On What Is Urgent, And Not Enough Time On What Is Important",
+        "amhversion":"ብዙዎቻችን አስቸኳይ በሆኑ ጉዳዮች ላይ ብዙ ጊዜ እናጠፋለን ፣ አስፈላጊ በሆነው ላይ ግን  በቂ ጊዜ የለንም  ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":42,
+        "engperson":"Unknown",
+        "amhperson":"ያልታወቀ",
+        "engversion":"Your Future Is Created By What You Do Today, Not Tomorrow",
+        "amhversion":"የወደፊት ሕይወትዎ የሚሰምረው ነገ በሚያደርጉት ሳይሆን ዛሬ በሚያደርጉት ነገር ነው  ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":43,
+        "engperson":"Michael Altshuler",
+        "amhperson":"ማይክል አልትሹለር",
+        "engversion":"The Bad News Is Time Flies. The Good News Is You're The Pilot",
+        "amhversion":"መጥፎው ዜና ጊዜ የሚበር ነው፡፡ መልካሙ ዜና  ግን አብራሪው ነዎት  ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
+    },
+    {
+        "id":44,
+        "engperson":"Golda Meir",
+        "amhperson":"ጎልዳ ሜየር",
+        "engversion":"I Must Govern The Clock, Not Be Governed By It",
+        "amhversion":"እኔ ሰዓቱን ማስተዳደር አለብኝ እንጂ እርሱ አያስተዳደረኝም  ።",
+        "engcategory":"Time Management",
+        "amhcategory":"ሰዓት አጠቃቀም"
     }
 ]

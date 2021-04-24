@@ -31,11 +31,11 @@ Future<void> main() async {
       isInDebugMode: true);
   // Periodic task registration
   Workmanager.registerPeriodicTask(
-      "trial_4th",
+      "trial_6th",
 
       //This is the value that will be
       // returned in the callbackDispatcher
-      "notification_4th",
+      "notification_6th",
 
       // When no frequency is provided
       // the default 15 minutes is set.
@@ -45,7 +45,11 @@ Future<void> main() async {
       // if you have configured a lower frequency.
       frequency: Duration(minutes: 15),
       initialDelay: Duration(seconds: 5));
-  runApp(MotivateApp());
+  final curlang = await NotificationServices.getCurrentLanguage();
+  runApp(MotivateApp(
+    language: curlang,
+    initiateApp: true,
+  ));
 }
 
 // void callbackDispatcher() {
@@ -89,7 +93,7 @@ Future<void> main() async {
 // }
 
 void callbackDispatcher() {
-  Workmanager.executeTask((task, inputData) {
+  Workmanager.executeTask((task, inputData) async {
     // initialise the plugin of flutterlocalnotifications.
     FlutterLocalNotificationsPlugin flip =
         new FlutterLocalNotificationsPlugin();
@@ -102,7 +106,7 @@ void callbackDispatcher() {
     // initialise settings for both Android and iOS device.
     var settings = new InitializationSettings(android: android, iOS: iOS);
     flip.initialize(settings);
-    _showNotificationWithDefaultSound(flip);
+    await _showNotificationWithDefaultSound(flip);
     return Future.value(true);
   });
 }
@@ -121,7 +125,9 @@ Future _showNotificationWithDefaultSound(flip) async {
   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
 
   final quotes = await QuoteDataProvider().readJSON();
-  final index = 0 + Random().nextInt((quotes.length));
+  final index = 0 + Random().nextInt((45));
+
+  final language = await NotificationServices.getCurrentLanguage();
 
   // initialise channel platform for both Android and iOS device.
   var platformChannelSpecifics = new NotificationDetails(
@@ -134,16 +140,20 @@ Future _showNotificationWithDefaultSound(flip) async {
   // // //     platformChannelSpecifics,
   // // //     payload: 'Default_Sound');
 
-  // // if (language.languageCode == "am") {
-  // //   await flip.show(0, "${quotes[index].amhperson}",
-  // //       "${quotes[index].amhversion}", platformChannelSpecifics);
-  // } else {
-  await flip.show(0, "${quotes[index].engperson}",
-      "${quotes[index].engversion}", platformChannelSpecifics);
-  // }
+  if (language.languageCode == "am") {
+    await flip.show(0, "${quotes[index].amhperson}",
+        "${quotes[index].amhversion}", platformChannelSpecifics);
+  } else {
+    await flip.show(0, "${quotes[index].engperson}",
+        "${quotes[index].engversion}", platformChannelSpecifics);
+    // }
+  }
 }
 
 class MotivateApp extends StatefulWidget {
+  final Language language;
+  bool initiateApp;
+  MotivateApp({this.language, this.initiateApp});
   static void setLocale(BuildContext context, Locale locale) {
     _MotivateAppState state =
         context.findAncestorStateOfType<_MotivateAppState>();
@@ -156,6 +166,7 @@ class MotivateApp extends StatefulWidget {
 
 class _MotivateAppState extends State<MotivateApp> {
   Locale _locale;
+  Language language;
 
   void setLocale(Locale locale) {
     setState(() {
@@ -164,8 +175,13 @@ class _MotivateAppState extends State<MotivateApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // String title;
+    String title;
 
     final quoteDataProvider = QuoteDataProvider();
     return MultiBlocProvider(
@@ -191,6 +207,10 @@ class _MotivateAppState extends State<MotivateApp> {
           MotivateAppLocalization.delegate,
         ],
         localeResolutionCallback: (devicelocale, supportedlocale) {
+          if (widget.initiateApp && widget.language.languageCode == "am") {
+            widget.initiateApp = false;
+            return supportedlocale.last;
+          }
           for (var locale in supportedlocale) {
             if (locale.languageCode == devicelocale.languageCode) {
               return devicelocale;
@@ -216,7 +236,9 @@ class _MotivateAppState extends State<MotivateApp> {
         ),
         home: ShowCaseWidget(
             builder: Builder(
-          builder: (context) => HomePage(),
+          builder: (context) => HomePage(
+            language: widget.language,
+          ),
         )),
       ),
     );

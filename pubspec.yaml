@@ -31,7 +31,8 @@ dependencies:
   equatable: ^2.0.0
   flutter_bloc: ^7.0.0
   flutter_launcher_icons: ^0.9.0
-  flutter_local_notifications: 
+  flutter_local_notifications: ^5.0.0
+  flutter_svg: ^0.21.0+1
   image_gallery_saver: ^1.6.8
   path: ^1.8.0
   path_provider: ^2.0.1
@@ -44,6 +45,9 @@ dependencies:
   sqflite: ^2.0.0+3
   timezone: ^0.7.0
   workmanager: ^0.2.3
+  url_launcher: ^6.0.3
+  connectivity: ^3.0.3
+
 
 dev_dependencies:
   flutter_test:
@@ -84,10 +88,12 @@ flutter:
     - assets/lang/en.json
     - assets/lang/am.json
     - assets/jsons/quotes.json
-    - assets/images/personal.jpg
-    - assets/images/leader.jpg
-    - assets/images/speaking.jpg
-    - assets/images/time.png
+    - assets/svgs/personal.svg
+    - assets/svgs/leadership.svg
+    - assets/svgs/speaking.svg
+    - assets/svgs/time.svg
+    - assets/svgs/en.svg
+    - assets/svgs/am.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

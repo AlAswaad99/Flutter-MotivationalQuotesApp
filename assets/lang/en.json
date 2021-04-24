@@ -6,5 +6,15 @@
         "personal": "Personal Development",
         "leadership": "Leadership",
         "time": "Time Management",
-        "speaking": "Public Speaking"
+        "speaking": "Public Speaking",
+        "add_to_favs": "Added To Favorites",
+        "remove_from_favs": "Removed From Favorites",
+        "undo": "UNDO",
+        "no_favs": "No Favorites Currently",
+        "screenshot_saved": "Screenshot Successfully Saved In Gallery",
+        "screenshot_not_saved": "Screenshot Not Saved",
+        "are_you_sure": "Are You Sure?",
+        "exit_message": "Do You Want to Exit this Application?",
+        "yes":"YES",
+        "no": "NO"
     }

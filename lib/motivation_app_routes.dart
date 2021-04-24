@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:motivate_linux/model/language.dart';
+import 'package:motivate_linux/model/quotes.dart';
 import 'package:motivate_linux/pages/favorites_tab.dart';
 import 'package:motivate_linux/pages/homepage.dart';
 import 'package:motivate_linux/pages/favorite_display_page.dart';
@@ -11,19 +13,37 @@ class MotivationAppRoute {
       return MaterialPageRoute(builder: (context) => HomePage());
     }
     if (settings.name == FavoritedQuoteDisplayPage.routeName) {
-      final quote = settings.arguments;
+      final arguments = settings.arguments;
       return MaterialPageRoute(
           builder: (context) => FavoritedQuoteDisplayPage(
-                quote: quote,
+                arguments: arguments,
               ));
     }
     if (settings.name == CategoryPageViewPage.routeName) {
-      final category = settings.arguments;
+      final arguments = settings.arguments;
       return MaterialPageRoute(
           builder: (context) => CategoryPageViewPage(
-                category: category,
+                arguments: arguments,
               ));
     }
     return MaterialPageRoute(builder: (context) => HomePage());
   }
+}
+
+class FavoritesDisplayPageArguments {
+  final Quote quote;
+  final Language language;
+  FavoritesDisplayPageArguments({this.quote, this.language});
+}
+
+class SingleQuoteViewArguments {
+  final Quote quote;
+  final Language language;
+  SingleQuoteViewArguments({this.quote, this.language});
+}
+
+class CategoriesDisplayPageViewArguments {
+  final String category;
+  final Language language;
+  CategoriesDisplayPageViewArguments({this.category, this.language});
 }

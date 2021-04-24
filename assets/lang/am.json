@@ -6,5 +6,15 @@
         "personal": "የራስ ዕድገት",
         "leadership": "መሪነት",
         "time": "ሰዓት አጠቃቀም",
-        "speaking": "ንግግር"
+        "speaking": "ንግግር",
+        "add_to_favs": "ወደ የተመረጡት ተካቷል",
+        "remove_from_favs": "ከየተመረጡት ውስጥ ወጥቷል",
+        "undo": "ወደኋላ ይመለሱ",
+        "no_favs": "የተመረጡት ለጊዜው ባዶ ነው",
+        "screenshot_saved": "ፎቶው በተሳካ ሁኔታ ጋላሪ ውስጥ ተቀምጧል",
+        "screenshot_not_saved": "ትዕዛዞ አልተሳካም",
+        "are_you_sure": "እርግጠኛ ነዎት?",
+        "exit_message": "መተግበሪያውን መዝጋት ይፈልጋሉ?",
+        "yes": "አዎ",
+        "no": "አይ"
     }

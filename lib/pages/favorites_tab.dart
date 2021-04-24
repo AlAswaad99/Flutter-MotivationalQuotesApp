@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motivate_linux/bloc/favorite_bloc.dart';
+import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/model/language.dart';
 import 'package:motivate_linux/model/quotes.dart';
+import 'package:motivate_linux/motivation_app_routes.dart';
 import 'package:motivate_linux/pages/favorite_display_page.dart';
 import 'package:emojis/emojis.dart';
 import 'package:emojis/emoji.dart';
@@ -42,9 +44,8 @@ class _FavoritesTabState extends State<FavoritesTab> {
             final favorites = favoritestate.quotes;
             if (favorites.length == 0) {
               return Center(
-                  child: Text(
-                'No Favorites Currently',
-              ));
+                  child: Text(MotivateAppLocalization.of(context)
+                      .getTranslatedValue("no_favs")));
             }
             return _buildfavoriteslist(favorites, context);
           }
@@ -88,10 +89,12 @@ class _FavoritesTabState extends State<FavoritesTab> {
                   BlocProvider.of<FavoriteBloc>(context)
                       .add(FavoriteDelete(favorites[index]));
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Removed From Favorites"),
+                    content: Text(MotivateAppLocalization.of(context)
+                        .getTranslatedValue("remove_from_favs")),
                     duration: const Duration(milliseconds: 6000),
                     action: SnackBarAction(
-                      label: "UNDO",
+                      label: MotivateAppLocalization.of(context)
+                          .getTranslatedValue("undo"),
                       onPressed: () {
                         BlocProvider.of<FavoriteBloc>(ctx)
                             .add(FavoriteAdd(undoQuote));
@@ -102,7 +105,8 @@ class _FavoritesTabState extends State<FavoritesTab> {
               ),
               onTap: () => Navigator.of(context).pushNamed(
                   FavoritedQuoteDisplayPage.routeName,
-                  arguments: favorites[index]),
+                  arguments: FavoritesDisplayPageArguments(
+                      quote: favorites[index], language: widget.currentLang)),
             ),
           );
         });
