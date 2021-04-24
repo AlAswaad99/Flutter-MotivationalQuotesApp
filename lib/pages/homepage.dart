@@ -178,8 +178,8 @@ class _HomePageState extends State<HomePage>
                     // dropdownColor: Colors.white10,
                     icon: SvgPicture.asset(
                       langIconURL,
-                      width: 25,
-                      height: 25,
+                      width: 15,
+                      height: 15,
                     ),
 
                     underline: SizedBox(),
@@ -206,8 +206,8 @@ class _HomePageState extends State<HomePage>
                               children: <Widget>[
                                 SvgPicture.asset(
                                   "assets/svgs/${e.languageCode}.svg",
-                                  width: 20,
-                                  height: 20,
+                                  width: 15,
+                                  height: 15,
                                 ),
                                 SizedBox(
                                   width: 15,

@@ -26,7 +26,7 @@ Future<void> main() async {
     callbackDispatcher,
   );
   Workmanager.registerPeriodicTask("trial_7th", "notification_7th",
-      frequency: Duration(hours: 6), initialDelay: Duration(seconds: 15));
+      frequency: Duration(minutes: 15), initialDelay: Duration(seconds: 15));
   final curlang = await NotificationServices.getCurrentLanguage();
 
   SystemChrome.setPreferredOrientations(
