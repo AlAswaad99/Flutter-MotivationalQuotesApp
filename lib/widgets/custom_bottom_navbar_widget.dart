@@ -29,6 +29,7 @@ class CustomBottomNavBar extends StatelessWidget {
           Tab(
             icon: Icon(
               Icons.format_quote,
+              size: 30,
             ),
           ),
           Tab(

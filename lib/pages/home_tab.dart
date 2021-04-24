@@ -1,17 +1,13 @@
 import 'dart:math';
 
+import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/model/model.dart';
+import 'package:motivate_linux/services/services.dart';
+import 'package:motivate_linux/widgets/widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motivate_linux/bloc/bloc.dart';
-import 'package:motivate_linux/bloc/favorite_bloc.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
-import 'package:motivate_linux/model/language.dart';
-import 'package:motivate_linux/services/like_service.dart';
-import 'package:motivate_linux/services/share_service.dart';
-import 'package:motivate_linux/widgets/custom_background_widget.dart';
-import 'package:motivate_linux/widgets/custom_showcase_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:connectivity/connectivity.dart';
 
 class HomeTab extends StatefulWidget {
   final List<GlobalKey> globalkeys;
@@ -63,7 +59,7 @@ class _HomeTabState extends State<HomeTab> {
                       });
                     },
                     child: CustomShowCaseWidget(
-                      description: "tap on quote to change",
+                      description: "Tap on Quote to Change",
                       globalkey: widget.globalkeys[0],
                       child: Container(
                         decoration: BoxDecoration(
@@ -73,12 +69,9 @@ class _HomeTabState extends State<HomeTab> {
                               topLeft: Radius.circular(10)),
                           color: Colors.black54,
                         ),
-
                         padding:
                             EdgeInsets.symmetric(horizontal: 35, vertical: 55),
                         width: MediaQuery.of(context).size.width,
-                        // height: 200,
-                        // color: Colors.black38,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -95,25 +88,46 @@ class _HomeTabState extends State<HomeTab> {
                               softWrap: true,
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 20,
                             ),
                             GestureDetector(
-                              child: Text(
-                                widget.currentLang == null
-                                    ? quotes[index].engperson
-                                    : widget.currentLang.languageCode == "am"
-                                        ? quotes[index].amhperson
-                                        : quotes[index].engperson,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.white54),
-                                softWrap: true,
-                              ),
-                              onTap: () async =>
-                                  searchDude(quotes[index].engperson, context),
-                            ),
+                                child: CustomShowCaseWidget(
+                                  globalkey: widget.globalkeys[1],
+                                  description:
+                                      "Tap on Author for More Information",
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      widget.currentLang == null
+                                          ? quotes[index].engperson
+                                          : widget.currentLang.languageCode ==
+                                                  "am"
+                                              ? quotes[index].amhperson
+                                              : quotes[index].engperson,
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.white54),
+                                      softWrap: true,
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+                                  final status = await SearchService()
+                                      .searchAuthor(
+                                          quotes[index].engperson, context);
+                                  if (!status) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          MotivateAppLocalization.of(context)
+                                              .getTranslatedValue("no_network"),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }),
                           ],
                         ),
                       ),
@@ -129,8 +143,8 @@ class _HomeTabState extends State<HomeTab> {
                                 topLeft: Radius.circular(15))),
                         // color: Colors.black54,
                         child: CustomShowCaseWidget(
-                          description: "share quotes",
-                          globalkey: widget.globalkeys[1],
+                          description: "Share Quote",
+                          globalkey: widget.globalkeys[2],
                           child: IconButton(
                             icon: Icon(Icons.share),
                             iconSize: 28,
@@ -147,8 +161,8 @@ class _HomeTabState extends State<HomeTab> {
                       Container(
                         color: Colors.black54,
                         child: CustomShowCaseWidget(
-                          description: "Add to favorites",
-                          globalkey: widget.globalkeys[2],
+                          description: "Add to Favorites",
+                          globalkey: widget.globalkeys[3],
                           child: BlocBuilder<FavoriteBloc, FavoriteState>(
                             builder: (context, state) {
                               if (state is FavoritesLoadSuccess) {
@@ -202,28 +216,5 @@ class _HomeTabState extends State<HomeTab> {
         return Center(child: CircularProgressIndicator());
       },
     );
-  }
-
-  void searchDude(String person, BuildContext context) async {
-    String _url = "https://www.google.com/search?q=";
-    String _queryString = person.replaceAll(" ", "+");
-    // String query = Uri.encodeQueryComponent(_queryString);
-    // String uri = Uri.encodeFull(_url + query);
-    var uri = Uri.parse(_url + _queryString).toString();
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      // I am connected to a mobile network.
-      // await canLaunch(uri)
-      await launch(
-        uri,
-        forceSafariVC: false,
-        forceWebView: false,
-      );
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("No Network")));
-    }
   }
 }

@@ -1,31 +1,16 @@
-import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
-
-import 'package:collapsible/collapsible.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:motivate_linux/bloc/bloc.dart';
-import 'package:motivate_linux/localization/localizaton.dart';
-import 'package:motivate_linux/model/language.dart';
-import 'package:motivate_linux/model/quotes.dart';
-import 'package:motivate_linux/motivation_app_routes.dart';
-import 'package:motivate_linux/services/screenshot_service.dart';
-import 'package:motivate_linux/services/share_service.dart';
-import 'package:motivate_linux/widgets/custom_showcase_widget.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:collapsible/collapsible.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share/share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
+
+import 'package:motivate_linux/services/services.dart';
+
+import 'package:motivate_linux/localization/localizaton.dart';
+import 'package:motivate_linux/motivation_app_routes.dart';
 
 class FavoritedQuoteDisplayPage extends StatefulWidget {
   static final String routeName = "QuoteDisplayPage";
   final FavoritesDisplayPageArguments arguments;
-  // final Quote quote;
-  // final Language language;
   FavoritedQuoteDisplayPage({this.arguments});
   @override
   _FavoritedQuoteDisplayPageState createState() =>
@@ -33,10 +18,6 @@ class FavoritedQuoteDisplayPage extends StatefulWidget {
 }
 
 class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
-  // final _keySix = GlobalKey();
-  // final _keySeven = GlobalKey();
-  // final _keyEight = GlobalKey();
-  // final _keyNine = GlobalKey();
   bool _collapsed = false;
   void _toggleCollapse() {
     setState(() {
@@ -51,7 +32,6 @@ class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
   }
 
   ScreenshotController _screenshotController = ScreenshotController();
-  Uint8List _imageFile;
   bool langSwitcher = true;
 
   @override
@@ -65,26 +45,6 @@ class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
 
   @override
   Widget build(BuildContext context) {
-    // SharedPreferences preferences;
-    // displayShowCase() async {
-    //   preferences = await SharedPreferences.getInstance();
-    //   bool showCaseVisisbilityStatus =
-    //       preferences.getBool("displayShowCaseFavoritesPage");
-
-    //   if (showCaseVisisbilityStatus == null) {
-    //     preferences.setBool("displayShowCaseFavoritesPage", false);
-    //     return true;
-    //   }
-    //   return false;
-    // }
-
-    // displayShowCase().then((status) {
-    //   if (status) {
-    //     ShowCaseWidget.of(context)
-    //         .startShowCase([_keySix, _keySeven, _keyEight, _keyNine]);
-    //   }
-    // });
-
     return Screenshot(
         controller: _screenshotController,
         child: Container(
@@ -198,10 +158,12 @@ class _FavoritedQuoteDisplayPageState extends State<FavoritedQuoteDisplayPage> {
                           Container(
                             color: Colors.black54,
                             child: IconButton(
-                                icon: Image(
-                                  image: AssetImage(langSwitcher
-                                      ? "assets/images/en.png"
-                                      : "assets/images/am.png"),
+                                icon: SvgPicture.asset(
+                                  langSwitcher
+                                      ? "assets/svgs/en.svg"
+                                      : "assets/svgs/am.svg",
+                                  width: 25,
+                                  height: 25,
                                 ),
                                 onPressed: () {
                                   setState(() {

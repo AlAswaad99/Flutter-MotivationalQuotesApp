@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motivate_linux/bloc/favorite_bloc.dart';
+
+import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/model/model.dart';
+
 import 'package:motivate_linux/localization/localizaton.dart';
-import 'package:motivate_linux/model/language.dart';
-import 'package:motivate_linux/model/quotes.dart';
 import 'package:motivate_linux/motivation_app_routes.dart';
 import 'package:motivate_linux/pages/favorite_display_page.dart';
 import 'package:emojis/emojis.dart';
-import 'package:emojis/emoji.dart';
 
 class FavoritesTab extends StatefulWidget {
   static final String routeName = "FavoritesPage";

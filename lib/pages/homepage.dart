@@ -1,32 +1,19 @@
-import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
-
-import 'package:collapsible/collapsible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:motivate_linux/bloc/bloc.dart';
+import 'package:motivate_linux/model/model.dart';
+import 'package:motivate_linux/widgets/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:motivate_linux/bloc/bloc.dart';
-import 'package:motivate_linux/bloc/favorite_bloc.dart';
-import 'package:motivate_linux/dataprovider/quote_data.dart';
 import 'package:motivate_linux/localization/lang_switcher.dart';
 import 'package:motivate_linux/localization/localizaton.dart';
 import 'package:motivate_linux/main.dart';
-import 'package:motivate_linux/model/language.dart';
-import 'package:motivate_linux/model/quotes.dart';
 import 'package:motivate_linux/pages/categories_tab.dart';
 import 'package:motivate_linux/pages/favorites_tab.dart';
 import 'package:motivate_linux/pages/home_tab.dart';
-import 'package:motivate_linux/services/like_service.dart';
-import 'package:motivate_linux/widgets/custom_background_widget.dart';
-import 'package:motivate_linux/widgets/custom_bottom_navbar_widget.dart';
-import 'package:motivate_linux/widgets/custom_showcase_widget.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -58,15 +45,14 @@ class _HomePageState extends State<HomePage>
   String imgURL = "assets/images/1.jpeg";
 
   Language currentLang;
-  Uint8List _imageFile;
   int curindex;
-  bool _collapsed = false;
 
   final _keyOne = GlobalKey();
   final _keyTwo = GlobalKey();
   final _keyThree = GlobalKey();
   final _keyFour = GlobalKey();
   final _keyFive = GlobalKey();
+  final _keySix = GlobalKey();
 
   // void _toggleCollapse() {
   //   setState(() {
@@ -157,6 +143,7 @@ class _HomePageState extends State<HomePage>
           _keyThree,
           _keyFour,
           _keyFive,
+          _keySix,
         ]);
       }
     });
@@ -174,15 +161,18 @@ class _HomePageState extends State<HomePage>
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: Text(MotivateAppLocalization.of(context)
-                .getTranslatedValue(currentpath)),
+            title: Text(
+              MotivateAppLocalization.of(context)
+                  .getTranslatedValue(currentpath),
+              style: TextStyle(fontFamily: 'Geogrotesque-Bold'),
+            ),
             backgroundColor: const Color.fromRGBO(11, 11, 11, 1),
             actions: [
               CustomShowCaseWidget(
-                description: "change language English/Amharic",
-                globalkey: _keyFour,
+                description: "Switch Language Between English/አማርኛ",
+                globalkey: _keyFive,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 25.0, 8.0),
                   child: DropdownButton<Language>(
                     elevation: 0,
                     // dropdownColor: Colors.white10,
@@ -234,8 +224,6 @@ class _HomePageState extends State<HomePage>
                 ),
               )
             ],
-            // child: Text(MotivateAppLocalization.of(context)
-            //     .getTranslatedValue("title")),
           ),
           body: Container(
             child: TabBarView(
@@ -244,7 +232,7 @@ class _HomePageState extends State<HomePage>
                 FavoritesTab(currentLang: currentLang),
                 HomeTab(
                   currentLang: currentLang,
-                  globalkeys: [_keyOne, _keyTwo, _keyThree],
+                  globalkeys: [_keyOne, _keyTwo, _keyThree, _keyFour],
                 ),
                 CategoriesTab(
                   currentLang: currentLang,

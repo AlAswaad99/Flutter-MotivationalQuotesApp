@@ -16,5 +16,7 @@
         "are_you_sure": "Are You Sure?",
         "exit_message": "Do You Want to Exit this Application?",
         "yes":"YES",
-        "no": "NO"
+        "no": "NO",
+        "no_network": "NO INTERNET CONNECTION!! Please Connect and Try Again"
+        
     }
