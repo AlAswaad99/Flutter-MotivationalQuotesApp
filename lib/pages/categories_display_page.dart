@@ -144,16 +144,35 @@ class _CategorySingleQuoteViewState extends State<CategorySingleQuoteView> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        langSwitcher
-                            ? widget.arguments.quote.engperson
-                            : widget.arguments.quote.amhperson,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.white70),
-                        softWrap: true,
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            langSwitcher
+                                ? widget.arguments.quote.engperson
+                                : widget.arguments.quote.amhperson,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.white70),
+                            softWrap: true,
+                          ),
+                        ),
+                        onTap: () async {
+                          final status = await SearchService().searchAuthor(
+                              widget.arguments.quote.engperson, context);
+                          if (!status) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  MotivateAppLocalization.of(context)
+                                      .getTranslatedValue("no_network"),
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
